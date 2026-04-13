@@ -4,6 +4,9 @@ export type GitHubUser = {
   bio: string | null;
   avatar_url: string;
   html_url: string;
+  blog: string;
+  company: string | null;
+  location: string | null;
   followers: number;
   following: number;
   public_repos: number;
@@ -29,8 +32,18 @@ export type LanguageStat = {
   weight: number;
 };
 
+export type PortfolioStats = {
+  totalRepos: number;
+  totalStars: number;
+  totalForks: number;
+  primaryLanguage: string | null;
+  recentActivityCount: number;
+  topTopics: string[];
+};
+
 export type GitHubPortfolioData = {
   user: GitHubUser;
   repos: GitHubRepo[];
   languages: LanguageStat[];
+  stats: PortfolioStats;
 };

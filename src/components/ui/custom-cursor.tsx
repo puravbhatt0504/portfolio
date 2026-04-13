@@ -21,27 +21,41 @@ export function CustomCursor() {
       mouseY.set(event.clientY);
     };
 
-    const activate = () => setIsActive(true);
-    const deactivate = () => setIsActive(false);
+    const activate = (event: MouseEvent) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      const interactiveTarget = target.closest("a, button, [data-cursor='interactive']");
+      setIsActive(Boolean(interactiveTarget));
+    };
+
+    const deactivate = (event: MouseEvent) => {
+      const relatedTarget = event.relatedTarget;
+
+      if (relatedTarget instanceof Element) {
+        const stillInteractive = relatedTarget.closest(
+          "a, button, [data-cursor='interactive']",
+        );
+
+        if (stillInteractive) {
+          return;
+        }
+      }
+
+      setIsActive(false);
+    };
 
     window.addEventListener("mousemove", move);
-
-    const targets = document.querySelectorAll(
-      "a, button, [data-cursor='interactive']",
-    );
-
-    targets.forEach((target) => {
-      target.addEventListener("mouseenter", activate);
-      target.addEventListener("mouseleave", deactivate);
-    });
+    document.addEventListener("mouseover", activate);
+    document.addEventListener("mouseout", deactivate);
 
     return () => {
       window.removeEventListener("mousemove", move);
-
-      targets.forEach((target) => {
-        target.removeEventListener("mouseenter", activate);
-        target.removeEventListener("mouseleave", deactivate);
-      });
+      document.removeEventListener("mouseover", activate);
+      document.removeEventListener("mouseout", deactivate);
     };
   }, [mouseX, mouseY]);
 

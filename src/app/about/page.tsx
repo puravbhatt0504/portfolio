@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { RouteHero } from "@/components/sections/route-hero";
 import { Reveal } from "@/components/ui/reveal";
 
@@ -7,6 +9,12 @@ const PRINCIPLES = [
   "Performance as a feature",
   "Design systems with personality",
 ];
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "How Purav Bhatt approaches interaction design, systems thinking, and product engineering.",
+};
 
 export default function AboutPage() {
   return (

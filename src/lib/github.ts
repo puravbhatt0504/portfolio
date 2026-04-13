@@ -1,10 +1,13 @@
 import "server-only";
 
+import { cache } from "react";
+
 import {
   GitHubPortfolioData,
   GitHubRepo,
   GitHubUser,
   LanguageStat,
+  PortfolioStats,
 } from "@/types/github";
 
 const GITHUB_API = "https://api.github.com";
@@ -172,7 +175,52 @@ function aggregateLanguages(repositories: GitHubRepo[]): LanguageStat[] {
   }));
 }
 
-export async function getGitHubPortfolioData(
+function aggregateTopics(repositories: GitHubRepo[]) {
+  const topicMap = new Map<string, number>();
+
+  for (const repository of repositories) {
+    for (const topic of repository.topics ?? []) {
+      const current = topicMap.get(topic) ?? 0;
+      topicMap.set(topic, current + 1);
+    }
+  }
+
+  return [...topicMap.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([topic]) => topic);
+}
+
+function getRecentActivityCount(repositories: GitHubRepo[]) {
+  const cutoff = Date.now() - 1000 * 60 * 60 * 24 * 180;
+
+  return repositories.filter((repository) => {
+    const updatedAt = new Date(repository.updated_at).getTime();
+    return Number.isFinite(updatedAt) && updatedAt >= cutoff;
+  }).length;
+}
+
+function buildPortfolioStats(
+  repositories: GitHubRepo[],
+  languages: LanguageStat[],
+): PortfolioStats {
+  return {
+    totalRepos: repositories.length,
+    totalStars: repositories.reduce(
+      (total, repository) => total + repository.stargazers_count,
+      0,
+    ),
+    totalForks: repositories.reduce(
+      (total, repository) => total + repository.forks_count,
+      0,
+    ),
+    primaryLanguage: languages[0]?.language ?? null,
+    recentActivityCount: getRecentActivityCount(repositories),
+    topTopics: aggregateTopics(repositories),
+  };
+}
+
+export const getGitHubPortfolioData = cache(async function getGitHubPortfolioData(
   username: string,
 ): Promise<GitHubPortfolioData> {
   const [user, repositories, pinnedRepositories] = await Promise.all([
@@ -189,9 +237,12 @@ export async function getGitHubPortfolioData(
     .sort((a, b) => b.stargazers_count - a.stargazers_count)
     .slice(0, 9);
 
+  const languages = aggregateLanguages(cleanRepos);
+
   return {
     user,
     repos: pinnedRepositories.length ? pinnedRepositories : fallbackRepositories,
-    languages: aggregateLanguages(cleanRepos.slice(0, 30)),
+    languages,
+    stats: buildPortfolioStats(cleanRepos, languages),
   };
-}
+});

@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { getGitHubPortfolioData } from "@/lib/github";
 
 import { RouteHero } from "@/components/sections/route-hero";
@@ -47,6 +49,12 @@ const ORDERED_WORKS = [
 function normalizeName(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]/g, "");
 }
+
+export const metadata: Metadata = {
+  title: "Work",
+  description:
+    "Selected repositories and product-facing builds from Purav Bhatt's public work.",
+};
 
 export default async function WorkPage() {
   const username = process.env.GITHUB_USERNAME ?? FALLBACK_USERNAME;

@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Syne } from "next/font/google";
 
 import { AudioProvider } from "@/components/providers/audio-provider";
 import { FloatingNav } from "@/components/navigation/floating-nav";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { SoundToggle } from "@/components/ui/sound-toggle";
+import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
 const bodyFont = Space_Grotesk({
@@ -17,9 +18,35 @@ const headingFont = Syne({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
 export const metadata: Metadata = {
-  title: "Purav Bhatt | Portfolio",
-  description: "Interactive developer portfolio of Purav Bhatt",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  applicationName: `${siteConfig.name} Portfolio`,
+  openGraph: {
+    title: siteConfig.title,
+    description: siteConfig.description,
+    type: "website",
+    siteName: `${siteConfig.name} Portfolio`,
+    url: siteUrl,
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: ["/twitter-image"],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#05070b",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({

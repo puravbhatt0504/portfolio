@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { RouteHero } from "@/components/sections/route-hero";
 import { Reveal } from "@/components/ui/reveal";
 
@@ -15,6 +17,12 @@ const EXPERIMENTS = [
     note: "Interface concepts for destination storytelling, route discovery, and media-rich exploration tailored to Sikkim tourism use cases.",
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Lab",
+  description:
+    "Experimental product concepts and interface explorations by Purav Bhatt.",
+};
 
 export default function LabPage() {
   return (
