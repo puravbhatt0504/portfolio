@@ -53,8 +53,8 @@ export function SkillsSection({ languages }: SkillsSectionProps) {
             {circles.map((entry, index) => {
               const angle = (index / circles.length) * Math.PI * 2;
               const radius = 130;
-              const left = Math.cos(angle) * radius + 184;
-              const top = Math.sin(angle) * radius + 184;
+              const left = `${(Math.cos(angle) * radius + 184).toFixed(3)}px`;
+              const top = `${(Math.sin(angle) * radius + 184).toFixed(3)}px`;
 
               return (
                 <motion.div
@@ -62,10 +62,25 @@ export function SkillsSection({ languages }: SkillsSectionProps) {
                   className="absolute rounded-full border border-cyan-300/40 bg-zinc-900/80 px-4 py-2 text-sm text-zinc-100 backdrop-blur"
                   style={{ left, top }}
                   initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  whileInView={{
+                    opacity: 1,
+                    scale: 1,
+                    transition: {
+                      delay: index * 0.08,
+                      type: "spring",
+                      stiffness: 150,
+                    },
+                  }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.08, type: "spring", stiffness: 150 }}
                   animate={{ y: [0, -6, 0] }}
+                  transition={{
+                    y: {
+                      duration: 2.2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.12,
+                    },
+                  }}
                   data-cursor="interactive"
                 >
                   {entry.language}

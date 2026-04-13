@@ -1,7 +1,7 @@
 import { PortfolioShell } from "@/components/portfolio-shell";
 import { getGitHubPortfolioData } from "@/lib/github";
 
-const FALLBACK_USERNAME = "vercel";
+const FALLBACK_USERNAME = "puravbhatt0504";
 
 export default async function Home() {
   const username = process.env.GITHUB_USERNAME ?? FALLBACK_USERNAME;

@@ -3,16 +3,16 @@ import { Reveal } from "@/components/ui/reveal";
 
 const EXPERIMENTS = [
   {
-    title: "Shader-Driven Typography",
-    note: "Variable noise fields blended with glyph masks for alive headlines.",
+    title: "Employee Ops UX Workbench",
+    note: "Design and interaction experiments inspired by Employee Manager Final, focused on smoother admin workflows and team-level visibility.",
   },
   {
-    title: "Kinetic Cursor Physics",
-    note: "Spring-chained cursor trails with stateful affordance responses.",
+    title: "Grindflow Productivity Engine",
+    note: "Rapid prototypes for task orchestration, execution tracking, and dashboard responsiveness in full-stack TypeScript systems.",
   },
   {
-    title: "Narrative Scroll Engine",
-    note: "Section-aware timing model combining snap, inertia, and reveal choreography.",
+    title: "Sikkim Tourism Experience Concepts",
+    note: "Interface concepts for destination storytelling, route discovery, and media-rich exploration tailored to Sikkim tourism use cases.",
   },
 ];
 
@@ -20,9 +20,9 @@ export default function LabPage() {
   return (
     <main className="pb-20">
       <RouteHero
-        eyebrow="Lab / Experiments"
-        title="A playground for weird ideas that later become product features."
-        description="I prototype interaction systems fast, test with users, then harden what resonates into scalable interfaces."
+        eyebrow="Lab / Purav Builds"
+        title="A full-stack experimentation space shaped by real products."
+        description="I prototype features around employee management, productivity systems, and tourism experiences, then evolve the strongest ideas into production-ready implementations."
       />
 
       <section className="mx-auto w-full max-w-6xl space-y-5 px-6 md:px-12">

@@ -10,7 +10,64 @@ type ProjectsSectionProps = {
   repos: GitHubRepo[];
 };
 
+const FEATURED_WORKS = [
+  {
+    title: "Employee Manager Final",
+    aliases: ["employee-manager-final"],
+    fallbackDescription:
+      "A complete employee workflow platform focused on streamlined management operations.",
+  },
+  {
+    title: "Sikkim Tourism",
+    aliases: ["sikkim-tourism", "sikkim_tourism", "monastery-ar", "event_management"],
+    fallbackDescription:
+      "An immersive tourism experience concept for showcasing destinations, routes, and culture in Sikkim.",
+  },
+  {
+    title: "Grindflow",
+    aliases: ["grindflow", "grindflow-backend"],
+    fallbackDescription:
+      "A productivity and workflow system built for execution-focused teams and individuals.",
+  },
+];
+
+function normalizeName(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
 export function ProjectsSection({ repos }: ProjectsSectionProps) {
+  const featuredRepos = useMemo(() => {
+    const now = "2026-04-13T00:00:00.000Z";
+
+    return FEATURED_WORKS.map((work) => {
+      const matched = repos.find((repo) =>
+        work.aliases.some((alias) => normalizeName(alias) === normalizeName(repo.name)),
+      );
+
+      if (matched) {
+        return {
+          ...matched,
+          name: work.title,
+          description: matched.description ?? work.fallbackDescription,
+        };
+      }
+
+      return {
+        id: `featured-${normalizeName(work.title)}`,
+        name: work.title,
+        description: work.fallbackDescription,
+        html_url: "https://github.com/puravbhatt0504",
+        homepage: null,
+        stargazers_count: 0,
+        forks_count: 0,
+        language: "TypeScript",
+        topics: ["featured"],
+        updated_at: now,
+        fork: false,
+      } satisfies GitHubRepo;
+    });
+  }, [repos]);
+
   const [selectedRepo, setSelectedRepo] = useState<GitHubRepo | null>(null);
   const [cycleWidth, setCycleWidth] = useState(0);
 
@@ -18,7 +75,10 @@ export function ProjectsSection({ repos }: ProjectsSectionProps) {
   const x = useMotionValue(0);
   const isDragging = useRef(false);
 
-  const railItems = useMemo(() => [...repos, ...repos, ...repos], [repos]);
+  const railItems = useMemo(
+    () => [...featuredRepos, ...featuredRepos, ...featuredRepos],
+    [featuredRepos],
+  );
 
   useEffect(() => {
     const node = cycleRef.current;
@@ -39,7 +99,7 @@ export function ProjectsSection({ repos }: ProjectsSectionProps) {
     observer.observe(node);
 
     return () => observer.disconnect();
-  }, [x, repos.length]);
+  }, [x, featuredRepos.length]);
 
   useAnimationFrame((_, delta) => {
     if (isDragging.current || cycleWidth === 0) {
@@ -65,11 +125,11 @@ export function ProjectsSection({ repos }: ProjectsSectionProps) {
   }, [cycleWidth, x]);
 
   const snapToCard = (velocity = 0) => {
-    if (!cycleWidth || repos.length === 0) {
+    if (!cycleWidth || featuredRepos.length === 0) {
       return;
     }
 
-    const cardSpan = cycleWidth / repos.length;
+    const cardSpan = cycleWidth / featuredRepos.length;
     const projected = x.get() + velocity * 0.14;
     const snapped = Math.round(projected / cardSpan) * cardSpan;
 
@@ -115,7 +175,7 @@ export function ProjectsSection({ repos }: ProjectsSectionProps) {
             <div
               key={`${repo.id}-${index}`}
               className="min-w-[290px] flex-1 basis-[min(72vw,360px)]"
-              ref={index === repos.length ? cycleRef : undefined}
+              ref={index === featuredRepos.length ? cycleRef : undefined}
             >
               <TiltCard className="group h-full">
                 <motion.button
@@ -124,7 +184,7 @@ export function ProjectsSection({ repos }: ProjectsSectionProps) {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: (index % repos.length) * 0.05 }}
+                  transition={{ delay: (index % featuredRepos.length) * 0.05 }}
                 >
                   <p className="text-xs uppercase tracking-[0.3em] text-cyan-100/70">
                     {repo.language ?? "Multi-stack"}

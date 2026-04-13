@@ -30,8 +30,8 @@ export function ContactSection({ githubUrl }: ContactSectionProps) {
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4">
-          <MagneticButton href="mailto:hello@yourdomain.dev">
-            hello@yourdomain.dev
+          <MagneticButton href="https://github.com/puravbhatt0504" target="_blank">
+            @puravbhatt0504
           </MagneticButton>
           <MagneticButton href={githubUrl} target="_blank">
             Follow On GitHub

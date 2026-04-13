@@ -18,8 +18,8 @@ const headingFont = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "Neon Rift Portfolio",
-  description: "High-impact interactive developer portfolio",
+  title: "Purav Bhatt | Portfolio",
+  description: "Interactive developer portfolio of Purav Bhatt",
 };
 
 export default function RootLayout({

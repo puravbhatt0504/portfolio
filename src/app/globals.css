@@ -50,6 +50,14 @@ body[data-portfolio-home="true"] {
   overflow: hidden;
 }
 
+@media (pointer: fine), (any-pointer: fine) {
+  html,
+  body,
+  body * {
+    cursor: none !important;
+  }
+}
+
 .font-heading {
   font-family: var(--font-syne), sans-serif;
   letter-spacing: -0.03em;

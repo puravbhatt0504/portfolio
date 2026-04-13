@@ -14,10 +14,10 @@ const HeroNebula = dynamic(
 );
 
 const TITLES = [
-  "Creative Engineer",
-  "Motion Architect",
-  "TypeScript Alchemist",
-  "Frontend Futurist",
+  "Full-Stack Product Developer",
+  "TypeScript and Flutter Engineer",
+  "Frontend and Backend Builder",
+  "Shipping Real-World Systems",
 ];
 
 type HeroSectionProps = {
@@ -69,7 +69,7 @@ export function HeroSection({ user }: HeroSectionProps) {
         <Reveal delay={0.2} className="max-w-2xl">
           <p className="text-lg leading-relaxed text-zinc-300/90">
             {user.bio ??
-              "I build expressive digital experiences where code behaves like choreography and interfaces feel alive."}
+              "I am Purav Bhatt, a full-stack developer building high-impact products across frontend, backend, and mobile with TypeScript and Flutter."}
           </p>
         </Reveal>
 
