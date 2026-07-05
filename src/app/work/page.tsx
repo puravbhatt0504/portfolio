@@ -102,16 +102,16 @@ export default async function WorkPage() {
               href={repo.html_url}
               target="_blank"
               rel="noreferrer"
-              className="block rounded-3xl border border-cyan-200/20 bg-zinc-900/60 p-6 backdrop-blur transition hover:border-emerald-300/60"
+              className="block rounded-3xl border border-pink-500/20 bg-white/70 p-6 backdrop-blur transition hover:border-blue-500/60 shadow-sm hover:shadow-md"
             >
-              <p className="text-xs uppercase tracking-[0.25em] text-cyan-100/70">
+              <p className="text-xs uppercase tracking-[0.25em] text-pink-500/90 font-bold">
                 {repo.language ?? "Cross-stack"}
               </p>
-              <h2 className="mt-3 text-2xl text-zinc-100">{repo.name}</h2>
-              <p className="mt-3 text-zinc-300/85">
+              <h2 className="mt-3 text-2xl text-slate-800 font-bold">{repo.name}</h2>
+              <p className="mt-3 text-slate-600">
                 {repo.description ?? "Engineered with motion, performance, and product clarity."}
               </p>
-              <div className="mt-5 flex gap-4 text-sm text-zinc-300">
+              <div className="mt-5 flex gap-4 text-sm text-slate-500 font-medium">
                 <span>Stars: {repo.stargazers_count}</span>
                 <span>Forks: {repo.forks_count}</span>
               </div>

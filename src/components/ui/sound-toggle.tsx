@@ -17,7 +17,7 @@ export function SoundToggle() {
         const pan = (event.clientX / window.innerWidth) * 2 - 1;
         play(360, 0.015, pan);
       }}
-      className="fixed bottom-5 right-5 z-[130] rounded-full border border-cyan-200/30 bg-zinc-900/80 px-4 py-2 text-xs uppercase tracking-[0.2em] text-cyan-100/80 backdrop-blur-md transition hover:border-emerald-300/60 hover:text-emerald-100"
+      className="fixed bottom-5 right-5 z-[130] rounded-full border border-slate-200/50 bg-white/80 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-500 backdrop-blur-md transition hover:border-pink-500/40 hover:text-pink-500 shadow-sm font-bold"
       whileTap={{ scale: 0.95 }}
       data-cursor="interactive"
       type="button"

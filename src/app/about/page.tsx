@@ -28,11 +28,11 @@ export default function AboutPage() {
       <section className="mx-auto grid w-full max-w-6xl gap-6 px-6 md:grid-cols-2 md:px-12">
         {PRINCIPLES.map((item, index) => (
           <Reveal key={item} delay={index * 0.06}>
-            <article className="rounded-3xl border border-cyan-200/20 bg-zinc-900/60 p-6 backdrop-blur">
-              <p className="text-xs uppercase tracking-[0.25em] text-cyan-100/70">
+            <article className="rounded-3xl border border-pink-500/20 bg-white/70 p-6 backdrop-blur shadow-sm hover:shadow-md transition">
+              <p className="text-xs uppercase tracking-[0.25em] text-pink-500/90 font-bold">
                 Principle {String(index + 1).padStart(2, "0")}
               </p>
-              <h2 className="mt-3 text-2xl text-zinc-100">{item}</h2>
+              <h2 className="mt-3 text-2xl text-slate-800 font-bold">{item}</h2>
             </article>
           </Reveal>
         ))}

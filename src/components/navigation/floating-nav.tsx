@@ -20,7 +20,7 @@ export function FloatingNav() {
 
   return (
     <LayoutGroup>
-      <nav className="fixed left-1/2 top-6 z-[120] -translate-x-1/2 rounded-full border border-cyan-200/25 bg-zinc-900/70 p-2 backdrop-blur-xl">
+      <nav className="fixed left-1/2 top-6 z-[120] -translate-x-1/2 rounded-full border border-slate-200/50 bg-white/80 p-2 backdrop-blur-xl shadow-sm">
         <ul className="flex items-center gap-1">
           {ROUTES.map((route) => {
             const isActive = pathname === route.href;
@@ -30,8 +30,8 @@ export function FloatingNav() {
                 <Link
                   href={route.href}
                   className={cn(
-                    "relative block rounded-full px-5 py-2 text-xs uppercase tracking-[0.28em] transition",
-                    isActive ? "text-zinc-900" : "text-cyan-100/75 hover:text-cyan-100",
+                    "relative block rounded-full px-5 py-2 text-xs uppercase tracking-[0.28em] transition font-bold",
+                    isActive ? "text-white" : "text-slate-500 hover:text-slate-900",
                   )}
                   onMouseEnter={(event) => {
                     const pan = (event.clientX / window.innerWidth) * 2 - 1;
@@ -46,11 +46,11 @@ export function FloatingNav() {
                   {isActive ? (
                     <motion.span
                       layoutId="active-nav-pill"
-                      className="absolute inset-0 rounded-full bg-cyan-200"
+                      className="absolute inset-0 rounded-full bg-pink-500 shadow-[0_4px_12px_rgba(236,72,153,0.3)]"
                       transition={{ type: "spring", stiffness: 400, damping: 35 }}
                     />
                   ) : null}
-                  <span className="relative">{route.label}</span>
+                  <span className="relative z-10">{route.label}</span>
                 </Link>
               </li>
             );

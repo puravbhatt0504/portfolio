@@ -223,26 +223,141 @@ function buildPortfolioStats(
 export const getGitHubPortfolioData = cache(async function getGitHubPortfolioData(
   username: string,
 ): Promise<GitHubPortfolioData> {
-  const [user, repositories, pinnedRepositories] = await Promise.all([
-    githubFetch<GitHubUser>(`/users/${username}`),
-    githubFetch<GitHubRepo[]>(`/users/${username}/repos?per_page=100&sort=updated`),
-    getPinnedRepositories(username),
-  ]);
+  try {
+    const [user, repositories, pinnedRepositories] = await Promise.all([
+      githubFetch<GitHubUser>(`/users/${username}`),
+      githubFetch<GitHubRepo[]>(`/users/${username}/repos?per_page=100&sort=updated`),
+      getPinnedRepositories(username),
+    ]);
 
-  const cleanRepos = repositories
-    .map((repository) => ({ ...repository, id: String(repository.id) }))
-    .filter((repository) => !repository.fork);
+    const cleanRepos = repositories
+      .map((repository) => ({ ...repository, id: String(repository.id) }))
+      .filter((repository) => !repository.fork);
 
-  const fallbackRepositories = cleanRepos
-    .sort((a, b) => b.stargazers_count - a.stargazers_count)
-    .slice(0, 9);
+    const fallbackRepositories = cleanRepos
+      .sort((a, b) => b.stargazers_count - a.stargazers_count)
+      .slice(0, 9);
 
-  const languages = aggregateLanguages(cleanRepos);
+    const languages = aggregateLanguages(cleanRepos);
 
-  return {
-    user,
-    repos: pinnedRepositories.length ? pinnedRepositories : fallbackRepositories,
-    languages,
-    stats: buildPortfolioStats(cleanRepos, languages),
-  };
+    return {
+      user,
+      repos: pinnedRepositories.length ? pinnedRepositories : fallbackRepositories,
+      languages,
+      stats: buildPortfolioStats(cleanRepos, languages),
+    };
+  } catch (error) {
+    console.warn("Using fallback mock data due to API limit.");
+    
+    // Return dummy data if API fails (e.g. rate limit / 401)
+    return {
+      user: {
+        login: username,
+        name: "Purav Bhatt",
+        bio: "Full-Stack Developer | Building immersive and dynamic digital experiences.",
+        avatar_url: "https://avatars.githubusercontent.com/u/134580434?v=4",
+        html_url: `https://github.com/${username}`,
+        blog: "",
+        company: null,
+        location: "India",
+        followers: 12,
+        following: 5,
+        public_repos: 13
+      },
+      repos: [
+        {
+          id: "3",
+          name: "employee-manager-final",
+          description: "A comprehensive workforce management system for City Fire Services. Features dual Flutter mobile apps (admin & employee) and a Next.js admin portal, backed by Supabase. Includes live GPS tracking, Mapbox integration, biometric auth, and OCR receipt scanning.",
+          html_url: "https://github.com/puravbhatt0504/employee-manager-final",
+          homepage: "https://employee-manager-final.vercel.app",
+          stargazers_count: 1,
+          forks_count: 0,
+          language: "Dart",
+          topics: ["flutter", "dart", "nextjs", "supabase", "mapbox", "ocr", "gps-tracking"],
+          updated_at: new Date().toISOString(),
+          fork: false,
+        },
+        {
+          id: "2",
+          name: "grindflow",
+          description: "AI-powered peer-to-peer knowledge exchange platform. Built with a robust TypeScript backend (Node.js/Express) and an interactive frontend to facilitate seamless knowledge graph creation and intelligent matching.",
+          html_url: "https://github.com/puravbhatt0504/grindflow",
+          homepage: null,
+          stargazers_count: 1,
+          forks_count: 3,
+          language: "TypeScript",
+          topics: ["ai", "typescript", "nodejs", "knowledge-graph", "peer-to-peer"],
+          updated_at: new Date().toISOString(),
+          fork: false,
+        },
+        {
+          id: "5",
+          name: "urban-policy-simulation",
+          description: "A complex simulation tool for urban planning and policy impact analysis. Uses data-driven models to predict and visualize the outcomes of city-wide policy changes on infrastructure and population metrics.",
+          html_url: "https://github.com/puravbhatt0504/urban-policy-simulation",
+          homepage: null,
+          stargazers_count: 0,
+          forks_count: 0,
+          language: "TypeScript",
+          topics: ["simulation", "policy", "urban-planning", "data-visualization"],
+          updated_at: new Date().toISOString(),
+          fork: false,
+        },
+        {
+          id: "1",
+          name: "Quote-me-",
+          description: "A professional Next.js web app for generating fire safety quotations. Features a dynamic product catalog, real-time tax/discount calculations, live previews with branding, and one-click Excel export.",
+          html_url: "https://github.com/puravbhatt0504/Quote-me-",
+          homepage: "https://quote-me-five.vercel.app",
+          stargazers_count: 0,
+          forks_count: 0,
+          language: "TypeScript",
+          topics: ["nextjs", "react", "tailwindcss", "typescript"],
+          updated_at: new Date().toISOString(),
+          fork: false,
+        },
+        {
+          id: "4",
+          name: "Sikkim-Tourism",
+          description: "Interactive tourism application showcasing the beauty of Sikkim. Features smooth animations, dynamic routing, and visually stunning image galleries to promote local tourism.",
+          html_url: "https://github.com/puravbhatt0504/Sikkim-Tourism",
+          homepage: "https://sikkim-tourism-five.vercel.app",
+          stargazers_count: 0,
+          forks_count: 0,
+          language: "JavaScript",
+          topics: ["tourism", "javascript", "react", "frontend"],
+          updated_at: new Date().toISOString(),
+          fork: false,
+        },
+        {
+          id: "6",
+          name: "tenderhunter",
+          description: "A comprehensive platform to track and manage tender applications. Streamlines the bidding process with automated tracking and organizational tools.",
+          html_url: "https://github.com/puravbhatt0504/tenderhunter",
+          homepage: "https://tenderhunter.vercel.app",
+          stargazers_count: 0,
+          forks_count: 0,
+          language: "JavaScript",
+          topics: ["tender", "management", "javascript"],
+          updated_at: new Date().toISOString(),
+          fork: false,
+        }
+      ],
+      languages: [
+        { language: "TypeScript", count: 6, weight: 1 },
+        { language: "JavaScript", count: 4, weight: 0.66 },
+        { language: "Dart", count: 2, weight: 0.33 },
+        { language: "HTML", count: 1, weight: 0.16 },
+      ],
+      stats: {
+        totalRepos: 13,
+        totalStars: 2,
+        totalForks: 3,
+        primaryLanguage: "TypeScript",
+        recentActivityCount: 13,
+        topTopics: ["typescript", "react", "nextjs", "javascript", "dart", "flutter"],
+      }
+    };
+  }
 });

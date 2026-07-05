@@ -63,19 +63,19 @@ export function CustomCursor() {
     <>
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[999] hidden h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/70 md:block"
+        className="pointer-events-none fixed left-0 top-0 z-[999] hidden h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border border-pink-500/70 md:block"
         style={{
           x: springX,
           y: springY,
           scale: isActive ? 1.65 : 1,
           boxShadow: isActive
-            ? "0 0 45px rgba(34,211,238,0.45)"
-            : "0 0 20px rgba(16,185,129,0.35)",
+            ? "0 0 45px rgba(236,72,153,0.45)"
+            : "0 0 20px rgba(59,130,246,0.35)",
         }}
       />
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[998] hidden h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/20 blur-xl md:block"
+        className="pointer-events-none fixed left-0 top-0 z-[998] hidden h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-400/20 blur-xl md:block"
         style={{
           x: trailX,
           y: trailY,

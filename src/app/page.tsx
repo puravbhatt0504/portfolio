@@ -1,4 +1,4 @@
-import { PortfolioShell } from "@/components/portfolio-shell";
+import { InteractiveShell } from "@/components/interactive-shell";
 import { getGitHubPortfolioData } from "@/lib/github";
 
 const FALLBACK_USERNAME = "puravbhatt0504";
@@ -8,5 +8,5 @@ export default async function Home() {
 
   const data = await getGitHubPortfolioData(username);
 
-  return <PortfolioShell data={data} />;
+  return <InteractiveShell data={data} />;
 }

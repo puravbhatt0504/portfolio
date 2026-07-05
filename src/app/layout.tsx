@@ -5,6 +5,7 @@ import { AudioProvider } from "@/components/providers/audio-provider";
 import { FloatingNav } from "@/components/navigation/floating-nav";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { SoundToggle } from "@/components/ui/sound-toggle";
+import { GlobalBackground } from "@/components/ui/global-background";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
@@ -45,8 +46,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05070b",
-  colorScheme: "dark",
+  themeColor: "#f8fafc",
+  colorScheme: "light",
 };
 
 export default function RootLayout({
@@ -61,6 +62,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <AudioProvider>
+          <GlobalBackground />
           <CustomCursor />
           <FloatingNav />
           <SoundToggle />

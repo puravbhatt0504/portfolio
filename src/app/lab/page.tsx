@@ -36,14 +36,14 @@ export default function LabPage() {
       <section className="mx-auto w-full max-w-6xl space-y-5 px-6 md:px-12">
         {EXPERIMENTS.map((experiment, index) => (
           <Reveal key={experiment.title} delay={index * 0.08}>
-            <article className="rounded-3xl border border-cyan-200/20 bg-zinc-900/60 p-6 backdrop-blur md:p-8">
-              <p className="text-xs uppercase tracking-[0.25em] text-cyan-100/70">
+            <article className="rounded-3xl border border-pink-500/20 bg-white/70 p-6 backdrop-blur md:p-8 shadow-sm transition hover:shadow-md">
+              <p className="text-xs uppercase tracking-[0.25em] text-pink-500/90 font-bold">
                 Experiment {String(index + 1).padStart(2, "0")}
               </p>
-              <h2 className="mt-3 font-heading text-3xl text-zinc-100 md:text-4xl">
+              <h2 className="mt-3 font-heading text-3xl text-slate-800 font-bold md:text-4xl">
                 {experiment.title}
               </h2>
-              <p className="mt-3 max-w-3xl text-zinc-300/90">{experiment.note}</p>
+              <p className="mt-3 max-w-3xl text-slate-600 font-medium">{experiment.note}</p>
             </article>
           </Reveal>
         ))}
