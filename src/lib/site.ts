@@ -2,9 +2,13 @@ export const siteConfig = {
   name: "Purav Bhatt",
   shortName: "Purav",
   title: "Purav Bhatt | Full-Stack Product Developer",
+  role: "Full-Stack Product Developer",
   description:
     "Interactive portfolio for Purav Bhatt, a full-stack product developer building polished Next.js, TypeScript, and Flutter experiences.",
-  availability: "Open to freelance builds, product collaborations, and UI refresh work.",
+  availability: "Open to full-time roles, contract work, and product collaborations.",
+  email: "pbhatt340@gmail.com",
+  linkedin: "https://www.linkedin.com/in/pb0504/",
+  resumeUrl: "/resume.pdf",
   services: [
     {
       title: "Frontend Experiences",

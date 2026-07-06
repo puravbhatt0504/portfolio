@@ -28,10 +28,10 @@ export function RouteHero({ eyebrow, title, description }: RouteHeroProps) {
 
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <Reveal>
-          <p className="text-xs uppercase tracking-[0.4em] text-pink-500/90 font-bold">{eyebrow}</p>
+          <p className="text-xs uppercase tracking-label text-pink-500/90 font-semibold font-mono">{eyebrow}</p>
         </Reveal>
         <Reveal delay={0.08}>
-          <h1 className="mt-5 max-w-4xl font-heading text-5xl text-slate-900 md:text-7xl font-black tracking-tight">
+          <h1 className="mt-5 max-w-4xl font-heading text-5xl text-slate-900 md:text-7xl font-extrabold tracking-tight">
             {title}
           </h1>
         </Reveal>

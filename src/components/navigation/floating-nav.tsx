@@ -1,47 +1,88 @@
 "use client";
 
 import { LayoutGroup, motion } from "framer-motion";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect, useCallback } from "react";
 
 import { useMotionSound } from "@/hooks/use-motion-sound";
 import { cn } from "@/lib/cn";
 
-const ROUTES = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/work", label: "Work" },
-  { href: "/lab", label: "Lab" },
+const SECTIONS = [
+  { id: "hero", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "work", label: "Work" },
+  { id: "contact", label: "Contact" },
 ];
 
 export function FloatingNav() {
   const pathname = usePathname();
   const { play } = useMotionSound();
+  const [activeSection, setActiveSection] = useState("hero");
+  const isHomePage = pathname === "/";
+
+  // Track which section is currently in view via IntersectionObserver
+  useEffect(() => {
+    if (!isHomePage) return;
+
+    const observers: IntersectionObserver[] = [];
+
+    SECTIONS.forEach(({ id }) => {
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(id);
+          }
+        },
+        { threshold: 0.3 }
+      );
+
+      observer.observe(element);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((obs) => obs.disconnect());
+  }, [isHomePage]);
+
+  const scrollToSection = useCallback(
+    (id: string) => {
+      const element = document.getElementById(id);
+      if (!element) return;
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    },
+    []
+  );
+
+  // On non-home pages, don't render the nav (or redirect to home with hash)
+  if (!isHomePage) return null;
 
   return (
     <LayoutGroup>
       <nav className="fixed left-1/2 top-6 z-[120] -translate-x-1/2 rounded-full border border-slate-200/50 bg-white/80 p-2 backdrop-blur-xl shadow-sm">
         <ul className="flex items-center gap-1">
-          {ROUTES.map((route) => {
-            const isActive = pathname === route.href;
+          {SECTIONS.map((section) => {
+            const isActive = activeSection === section.id;
 
             return (
-              <li key={route.href}>
-                <Link
-                  href={route.href}
-                  className={cn(
-                    "relative block rounded-full px-5 py-2 text-xs uppercase tracking-[0.28em] transition font-bold",
-                    isActive ? "text-white" : "text-slate-500 hover:text-slate-900",
-                  )}
+              <li key={section.id}>
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    scrollToSection(section.id);
+                    const pan = (event.clientX / window.innerWidth) * 2 - 1;
+                    play(520, 0.02, pan);
+                  }}
                   onMouseEnter={(event) => {
                     const pan = (event.clientX / window.innerWidth) * 2 - 1;
                     play(360, 0.015, pan);
                   }}
-                  onClick={(event) => {
-                    const pan = (event.clientX / window.innerWidth) * 2 - 1;
-                    play(520, 0.02, pan);
-                  }}
-                  data-cursor="interactive"
+                  className={cn(
+                    "relative block rounded-full px-5 py-2 text-xs uppercase tracking-label transition font-semibold cursor-pointer",
+                    isActive ? "text-white" : "text-slate-500 hover:text-slate-900",
+                  )}
                 >
                   {isActive ? (
                     <motion.span
@@ -50,8 +91,8 @@ export function FloatingNav() {
                       transition={{ type: "spring", stiffness: 400, damping: 35 }}
                     />
                   ) : null}
-                  <span className="relative z-10">{route.label}</span>
-                </Link>
+                  <span className="relative z-10">{section.label}</span>
+                </button>
               </li>
             );
           })}
@@ -60,3 +101,4 @@ export function FloatingNav() {
     </LayoutGroup>
   );
 }
+

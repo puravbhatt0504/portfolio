@@ -232,7 +232,11 @@ export const getGitHubPortfolioData = cache(async function getGitHubPortfolioDat
 
     const cleanRepos = repositories
       .map((repository) => ({ ...repository, id: String(repository.id) }))
-      .filter((repository) => !repository.fork);
+      .filter((repository) => (!repository.fork || repository.name === "urban-policy-simulation") && repository.name.toLowerCase() !== "portfolio");
+
+    const cleanPinnedRepos = pinnedRepositories.filter(
+      (repository) => repository.name.toLowerCase() !== "portfolio"
+    );
 
     const fallbackRepositories = cleanRepos
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
@@ -242,7 +246,7 @@ export const getGitHubPortfolioData = cache(async function getGitHubPortfolioDat
 
     return {
       user,
-      repos: pinnedRepositories.length ? pinnedRepositories : fallbackRepositories,
+      repos: cleanPinnedRepos.length ? cleanPinnedRepos : fallbackRepositories,
       languages,
       stats: buildPortfolioStats(cleanRepos, languages),
     };

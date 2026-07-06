@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Syne } from "next/font/google";
+import { Space_Grotesk, Syne, JetBrains_Mono } from "next/font/google";
 
 import { AudioProvider } from "@/components/providers/audio-provider";
 import { FloatingNav } from "@/components/navigation/floating-nav";
-import { CustomCursor } from "@/components/ui/custom-cursor";
+
 import { SoundToggle } from "@/components/ui/sound-toggle";
 import { GlobalBackground } from "@/components/ui/global-background";
 import { siteConfig } from "@/lib/site";
@@ -16,6 +16,11 @@ const bodyFont = Space_Grotesk({
 
 const headingFont = Syne({
   variable: "--font-syne",
+  subsets: ["latin"],
+});
+
+const monoFont = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
 });
 
@@ -58,12 +63,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bodyFont.variable} ${headingFont.variable} h-full antialiased`}
+      className={`${bodyFont.variable} ${headingFont.variable} ${monoFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <AudioProvider>
           <GlobalBackground />
-          <CustomCursor />
+
           <FloatingNav />
           <SoundToggle />
           {children}

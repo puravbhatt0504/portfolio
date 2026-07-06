@@ -13,6 +13,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-space-grotesk);
   --font-heading: var(--font-syne);
+  --font-mono: var(--font-jetbrains);
 }
 
 * {
@@ -25,9 +26,7 @@ body {
   font-family: var(--font-space-grotesk), sans-serif;
 }
 
-html {
-  scrollbar-width: none;
-}
+
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar,
@@ -52,17 +51,33 @@ body {
   }
 }
 
-@media (pointer: fine), (any-pointer: fine) {
-  html,
-  body,
-  body * {
-    cursor: none !important;
-  }
-}
 
+
+
+/* === Typographic System === */
+
+/* Heading font — Syne: used for all major headings */
 .font-heading {
   font-family: var(--font-syne), sans-serif;
   letter-spacing: -0.03em;
+}
+
+/* Mono font — JetBrains Mono: used for labels, locations, code-like text */
+.font-mono {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+/* Standardized tracking tiers */
+.tracking-display {
+  letter-spacing: -0.04em;
+}
+
+.tracking-tight {
+  letter-spacing: -0.02em;
+}
+
+.tracking-label {
+  letter-spacing: 0.25em;
 }
 
 .line-clamp-3 {
@@ -70,6 +85,6 @@ body {
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
-
 

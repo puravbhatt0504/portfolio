@@ -13,35 +13,42 @@ const ORDERED_WORKS = [
     title: "Employee Manager Final",
     aliases: ["employee-manager-final"],
     description:
-      "A complete employee workflow platform focused on streamlined management operations and team visibility.",
+      "Dual Flutter mobile apps (admin & employee) + Next.js admin portal for City Fire Services. Live GPS tracking, biometric auth, OCR receipt scanning, backed by Supabase.",
     language: "Dart",
+  },
+  {
+    title: "Simulation Sys",
+    aliases: ["urban-policy-simulation", "simulation-sys", "simulation_sys"],
+    description:
+      "Data-driven simulation tool for urban planning and policy impact analysis. Visualizes outcomes of city-wide policy changes on infrastructure and population metrics.",
+    language: "TypeScript",
   },
   {
     title: "Sikkim Tourism",
     aliases: ["sikkim-tourism", "sikkim_tourism", "monastery-ar", "event_management"],
     description:
-      "An immersive tourism experience concept for showcasing destinations, routes, and culture in Sikkim.",
+      "Interactive tourism app with smooth animations, dynamic routing, and media-rich image galleries. Deployed on Vercel with responsive design for all devices.",
     language: "HTML",
   },
   {
     title: "Grindflow",
     aliases: ["grindflow", "grindflow-backend"],
     description:
-      "A productivity and workflow system built for execution-focused teams and individuals.",
+      "AI-powered peer-to-peer knowledge exchange platform. TypeScript backend (Node.js/Express) with intelligent matching and knowledge graph creation.",
     language: "TypeScript",
   },
   {
     title: "Quote Me",
     aliases: ["quote-me-", "quote-me"],
     description:
-      "A quote and request workflow product focused on quick interactions and clear delivery pipelines.",
+      "Next.js app for generating fire safety quotations. Dynamic product catalog, real-time tax/discount calculations, live preview with branding, and Excel export.",
     language: "TypeScript",
   },
   {
     title: "Tenderhunter",
     aliases: ["tenderhunter"],
     description:
-      "A practical platform to discover and track tender opportunities with streamlined filtering and discovery.",
+      "Platform to discover and track tender opportunities. Automated tracking, filtering by category and deadline, with organizational bidding tools.",
     language: "JavaScript",
   },
 ];
@@ -98,24 +105,41 @@ export default async function WorkPage() {
       <section className="mx-auto grid w-full max-w-6xl gap-5 px-6 md:grid-cols-2 md:px-12">
         {displayRepos.map((repo, index) => (
           <Reveal key={repo.id} delay={index * 0.07}>
-            <a
-              href={repo.html_url}
-              target="_blank"
-              rel="noreferrer"
-              className="block rounded-3xl border border-pink-500/20 bg-white/70 p-6 backdrop-blur transition hover:border-blue-500/60 shadow-sm hover:shadow-md"
-            >
-              <p className="text-xs uppercase tracking-[0.25em] text-pink-500/90 font-bold">
+            <div className="rounded-3xl border border-pink-500/20 bg-white/70 p-6 backdrop-blur transition hover:border-blue-500/60 shadow-sm hover:shadow-md">
+              <p className="text-xs uppercase tracking-label text-pink-500/90 font-semibold font-mono">
                 {repo.language ?? "Cross-stack"}
               </p>
-              <h2 className="mt-3 text-2xl text-slate-800 font-bold">{repo.name}</h2>
+              <h2 className="mt-3 font-heading text-2xl text-slate-800 font-bold">{repo.name}</h2>
               <p className="mt-3 text-slate-600">
                 {repo.description ?? "Engineered with motion, performance, and product clarity."}
               </p>
-              <div className="mt-5 flex gap-4 text-sm text-slate-500 font-medium">
-                <span>Stars: {repo.stargazers_count}</span>
-                <span>Forks: {repo.forks_count}</span>
+              <div className="mt-5 flex items-center justify-between">
+                <div className="flex gap-4 text-sm text-slate-500 font-medium font-mono">
+                  <span>★ {repo.stargazers_count}</span>
+                  <span>Forks: {repo.forks_count}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  {repo.homepage && (
+                    <a
+                      href={repo.homepage}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm font-semibold text-blue-500 hover:text-blue-600 transition-colors"
+                    >
+                      Live Demo ↗
+                    </a>
+                  )}
+                  <a
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm font-semibold text-pink-500 hover:text-pink-600 transition-colors"
+                  >
+                    Code →
+                  </a>
+                </div>
               </div>
-            </a>
+            </div>
           </Reveal>
         ))}
       </section>

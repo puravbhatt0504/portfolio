@@ -37,7 +37,7 @@ export default function LabPage() {
         {EXPERIMENTS.map((experiment, index) => (
           <Reveal key={experiment.title} delay={index * 0.08}>
             <article className="rounded-3xl border border-pink-500/20 bg-white/70 p-6 backdrop-blur md:p-8 shadow-sm transition hover:shadow-md">
-              <p className="text-xs uppercase tracking-[0.25em] text-pink-500/90 font-bold">
+              <p className="text-xs uppercase tracking-label text-pink-500/90 font-semibold font-mono">
                 Experiment {String(index + 1).padStart(2, "0")}
               </p>
               <h2 className="mt-3 font-heading text-3xl text-slate-800 font-bold md:text-4xl">

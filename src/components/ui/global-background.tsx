@@ -7,10 +7,7 @@ export function GlobalBackground() {
   return (
     <>
       <div 
-        className="fixed inset-0 -z-30 pointer-events-none" 
-        style={{
-          backgroundImage: "linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)"
-        }}
+        className="fixed inset-0 -z-30 pointer-events-none bg-gradient-to-b from-slate-50 to-slate-100" 
       />
       <video 
         className="fixed inset-0 w-full h-full object-cover -z-20 pointer-events-none" 
