@@ -9,16 +9,22 @@ export function GlobalBackground() {
       <div 
         className="fixed inset-0 -z-30 pointer-events-none bg-gradient-to-b from-slate-50 to-slate-100" 
       />
-      <video 
-        className="fixed inset-0 w-full h-full object-cover -z-20 pointer-events-none" 
-        autoPlay 
-        muted 
-        loop 
-        playsInline
-        preload="auto"
-      >
-        <source src="/hero.mp4" type="video/mp4" />
-      </video>
+      <div 
+        dangerouslySetInnerHTML={{
+          __html: `
+            <video
+              class="fixed inset-0 w-full h-full object-cover -z-20 pointer-events-none"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+            >
+              <source src="/hero.mp4" type="video/mp4" />
+            </video>
+          `
+        }}
+      />
       <div className="fixed inset-0 bg-white/70 backdrop-blur-[2px] -z-10 pointer-events-none" />
 
       {/* Three.js Canvas Layer */}
