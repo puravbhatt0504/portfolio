@@ -142,7 +142,7 @@ export function Projects3D({ repos }: Projects3DProps) {
                           {(repo.homepage || repo.name.toLowerCase().includes("grindflow")) && (
                             <MagneticWrap strength={0.3}>
                               <a
-                                href={repo.name.toLowerCase().includes("grindflow") ? "https://grindflow.vercel.app/" : repo.homepage}
+                                href={repo.name.toLowerCase().includes("grindflow") ? "https://grindflow.vercel.app/" : (repo.homepage ?? undefined)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-blue-500 text-sm font-semibold hover:text-blue-600 transition-colors"
