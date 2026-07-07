@@ -1,6 +1,7 @@
 {
   "name": "portfolio",
   "version": "0.1.0",
+  "homepage": "https://portfolio-purav-bhatt.vercel.app",
   "private": true,
   "scripts": {
     "dev": "next dev",
