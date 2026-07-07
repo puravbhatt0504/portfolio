@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Syne, JetBrains_Mono } from "next/font/google";
 
 import { AudioProvider } from "@/components/providers/audio-provider";
-import { FloatingNav } from "@/components/navigation/floating-nav";
+import { HeroSideNav } from "@/components/navigation/hero-side-nav";
 
 import { SoundToggle } from "@/components/ui/sound-toggle";
 import { GlobalBackground } from "@/components/ui/global-background";
@@ -69,7 +69,7 @@ export default function RootLayout({
         <AudioProvider>
           <GlobalBackground />
 
-          <FloatingNav />
+          <HeroSideNav />
           <SoundToggle />
           {children}
         </AudioProvider>

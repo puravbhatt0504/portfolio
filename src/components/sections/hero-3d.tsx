@@ -25,11 +25,13 @@ export function Hero3D({ user, stats }: Hero3DProps) {
   useGSAP(() => {
     const tl = gsap.timeline();
     
-    tl.from(headline.current, {
-      y: 50,
+    tl.from(".hero-char", {
+      y: 60,
+      rotateX: -90,
       opacity: 0,
-      duration: 1,
-      ease: "power3.out",
+      duration: 0.8,
+      stagger: 0.04,
+      ease: "back.out(1.5)",
       filter: "blur(10px)"
     })
     .from(roleRef.current, {
@@ -66,14 +68,28 @@ export function Hero3D({ user, stats }: Hero3DProps) {
       <div className="relative z-20 text-center w-full max-w-5xl">
         <h1
           ref={headline}
-          className="font-heading text-6xl md:text-9xl font-black mb-4 tracking-display text-slate-900 [text-shadow:0_10px_30px_rgba(0,0,0,0.1)]"
+          className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black mb-4 tracking-display text-slate-950 [text-shadow:0_4px_24px_rgba(15,23,42,0.25)] [perspective:1000px]"
         >
-          {user.name || user.login}
+          {(user.name || user.login || "Purav Bhatt").split(" ").map((word, wordIndex, wordsArray) => (
+            <span key={wordIndex} className="inline-block whitespace-nowrap">
+              {word.split("").map((char, i) => (
+                <span
+                  key={`${wordIndex}-${i}`}
+                  className="hero-char inline-block origin-bottom whitespace-normal"
+                >
+                  {char}
+                </span>
+              ))}
+              {wordIndex < wordsArray.length - 1 && (
+                <span className="hero-char inline-block whitespace-pre"> </span>
+              )}
+            </span>
+          ))}
         </h1>
 
         <p
           ref={roleRef}
-          className="text-lg md:text-2xl font-mono font-medium text-pink-500/90 tracking-tight mb-6"
+          className="text-lg md:text-2xl font-mono font-semibold text-violet-600 tracking-tight mb-6"
         >
           {siteConfig.role}
         </p>
@@ -82,7 +98,7 @@ export function Hero3D({ user, stats }: Hero3DProps) {
           ref={subheadline}
           className="text-xl md:text-2xl text-slate-600 font-medium max-w-2xl mx-auto mb-8 leading-relaxed"
         >
-          {user.bio || "Building production-grade apps with Next.js, TypeScript, and Flutter."}
+          Engineering intelligent systems and premium interfaces—from AI-driven urban simulations to robust enterprise tools.
         </p>
 
         {/* CTA Row */}

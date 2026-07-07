@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getGitHubPortfolioData } from "@/lib/github";
 
 import { RouteHero } from "@/components/sections/route-hero";
-import { Reveal } from "@/components/ui/reveal";
+import { WorkPageClient } from "./client";
 import { GitHubRepo } from "@/types/github";
 
 const FALLBACK_USERNAME = "puravbhatt0504";
@@ -102,47 +102,7 @@ export default async function WorkPage() {
         description="A curated feed from GitHub with pinned priority, tuned to spotlight impact and consistency."
       />
 
-      <section className="mx-auto grid w-full max-w-6xl gap-5 px-6 md:grid-cols-2 md:px-12">
-        {displayRepos.map((repo, index) => (
-          <Reveal key={repo.id} delay={index * 0.07}>
-            <div className="rounded-3xl border border-pink-500/20 bg-white/70 p-6 backdrop-blur transition hover:border-blue-500/60 shadow-sm hover:shadow-md">
-              <p className="text-xs uppercase tracking-label text-pink-500/90 font-semibold font-mono">
-                {repo.language ?? "Cross-stack"}
-              </p>
-              <h2 className="mt-3 font-heading text-2xl text-slate-800 font-bold">{repo.name}</h2>
-              <p className="mt-3 text-slate-600">
-                {repo.description ?? "Engineered with motion, performance, and product clarity."}
-              </p>
-              <div className="mt-5 flex items-center justify-between">
-                <div className="flex gap-4 text-sm text-slate-500 font-medium font-mono">
-                  <span>★ {repo.stargazers_count}</span>
-                  <span>Forks: {repo.forks_count}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  {repo.homepage && (
-                    <a
-                      href={repo.homepage}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-sm font-semibold text-blue-500 hover:text-blue-600 transition-colors"
-                    >
-                      Live Demo ↗
-                    </a>
-                  )}
-                  <a
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-sm font-semibold text-pink-500 hover:text-pink-600 transition-colors"
-                  >
-                    Code →
-                  </a>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </section>
+      <WorkPageClient repos={displayRepos} />
     </main>
   );
 }

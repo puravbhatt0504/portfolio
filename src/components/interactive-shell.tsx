@@ -23,7 +23,11 @@ export function InteractiveShell({ data }: InteractiveShellProps) {
             <Hero3D user={data.user} stats={data.stats} />
             <About3D />
             <Skills3D />
-            <Projects3D repos={data.repos} />
+            <Projects3D repos={data.repos.filter(repo => 
+              ["employee-manager-final", "grindflow", "simulation", "quote-me", "sikkim-tourism"].some(
+                name => repo.name.toLowerCase().includes(name)
+              ) && !repo.name.toLowerCase().includes("backend")
+            )} />
             <Contact3D
               githubUrl={data.user.html_url}
               websiteUrl={data.user.blog}
