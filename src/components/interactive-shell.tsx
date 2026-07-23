@@ -16,9 +16,9 @@ type InteractiveShellProps = {
 export function InteractiveShell({ data }: InteractiveShellProps) {
   return (
     <SmoothScrollProvider>
-      <div className="relative w-full h-full min-h-screen overflow-hidden">
+      <div className="relative w-full">
         {/* Scrollable HTML Overlay */}
-        <div className="relative z-10 w-full h-full text-slate-900 pointer-events-none">
+        <div className="relative z-10 w-full h-full pointer-events-none">
           <div className="pointer-events-auto">
             <Hero3D user={data.user} stats={data.stats} />
             <About3D />

@@ -1,16 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { GitHubRepo } from "@/types/github";
 import { VideoModal } from "@/components/ui/video-modal";
-import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { TextShimmer, FloatingParticles, MagneticWrap } from "@/components/ui/motion-effects";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type Projects3DProps = {
   repos: GitHubRepo[];
@@ -22,153 +15,175 @@ function isEmployeeManager(name: string) {
   return name.toLowerCase().replace(/[^a-z0-9]/g, "").includes("employeemanager");
 }
 
-// Unique spotlight color per card
-const CARD_COLORS = [
-  "rgba(236,72,153,0.10)",
-  "rgba(139,92,246,0.10)",
-  "rgba(59,130,246,0.10)",
-  "rgba(249,115,22,0.10)",
-  "rgba(16,185,129,0.10)",
-  "rgba(236,72,153,0.08)",
-];
+const PROJECT_META: Record<string, { desc: string; tag: string }> = {
+  "employee-manager-final": {
+    desc: "A comprehensive, cross-platform enterprise solution for managing employee attendance and administrative workflows.",
+    tag: "Enterprise · Flutter · Next.js",
+  },
+  "grindflow": {
+    desc: "A scalable, AI-powered knowledge exchange platform with a robust TypeScript backend and intelligent matching algorithms.",
+    tag: "Web · AI · Productivity",
+  },
+  "urban-policy-simulation": {
+    desc: "An advanced agent-based modeling system simulating complex urban policy and traffic dynamics with AI-driven behaviors.",
+    tag: "Simulation · AI · Python",
+  },
+  "Quote-me-": {
+    desc: "Professional Next.js web app for generating fire safety quotations with dynamic catalog, real-time calculations.",
+    tag: "Web · Next.js",
+  },
+  "Sikkim-Tourism": {
+    desc: "Interactive tourism application with smooth animations, dynamic routing, and visually stunning image galleries.",
+    tag: "Web · Design",
+  },
+};
 
 export function Projects3D({ repos }: Projects3DProps) {
-  const topRepos = repos.slice(0, 6);
+  const topRepos = repos.filter(repo => repo.name !== "Quote-me-").slice(0, 4);
   const container = useRef<HTMLElement>(null);
-  const headline = useRef<HTMLHeadingElement>(null);
   const [showDemo, setShowDemo] = useState(false);
 
-  useGSAP(() => {
-    gsap.from(headline.current, {
-      scrollTrigger: {
-        trigger: container.current,
-        start: "top 80%",
-      },
-      scale: 0.9,
-      opacity: 0,
-      duration: 0.7,
-      ease: "power2.out"
-    });
-  }, { scope: container });
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ["start center", "end center"],
+  });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <>
-      <section ref={container} id="work" className="min-h-screen flex flex-col justify-center px-4 md:px-20 py-20 relative z-10">
-        <FloatingParticles count={8} seed={263} colors={["bg-pink-400/15", "bg-violet-400/15", "bg-orange-400/10"]} />
+      <section ref={container} id="work" className="relative z-10 px-6 md:px-20 py-16">
+        <div className="section-divider mb-12" />
 
-        <div className="max-w-7xl mx-auto w-full">
-          <h2 
-            ref={headline}
-            className="font-heading text-5xl md:text-8xl font-extrabold mb-20 text-center tracking-tight text-slate-900"
-          >
-            Selected <TextShimmer className="drop-shadow-sm text-5xl md:text-8xl font-extrabold font-heading tracking-tight">Works</TextShimmer>
+        <div className="text-center mb-16 relative z-20">
+          <p className="font-mono text-[11px] uppercase tracking-widest text-blue mb-4">
+            Selected Work
+          </p>
+          <h2 className="font-heading text-5xl sm:text-6xl font-bold text-ink mb-4">
+            Scrapbook of <br />
+            <span className="text-coral italic font-serif">Creations</span>
           </h2>
+          <div className="absolute top-0 right-1/4 hidden lg:block opacity-50 -rotate-12">
+            <img src="/icons/stamp-1.png" alt="" className="w-16 h-16 opacity-30" />
+          </div>
+        </div>
 
-          <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-            {topRepos.map((repo, index) => {
-              const hasDemo = isEmployeeManager(repo.name);
+        <div className="max-w-5xl mx-auto flex flex-col gap-20 relative">
+          {/* Animated Connecting Line */}
+          <div className="absolute left-1/2 top-24 bottom-24 w-px -translate-x-1/2 pointer-events-none hidden md:block z-0">
+            <div className="w-full h-full border-l-2 border-dashed border-ink/10" />
+            <motion.div 
+              className="absolute top-0 left-0 w-full border-l-2 border-dashed border-coral origin-top"
+              style={{ height: lineHeight }}
+            />
+          </div>
+          {topRepos.map((repo, index) => {
+            const meta = PROJECT_META[repo.name] || {
+              desc: repo.description || "Building the next generation of web experiences.",
+              tag: "Web · Full-Stack",
+            };
+            const hasDemo = isEmployeeManager(repo.name);
+            const isEven = index % 2 === 0;
 
-              return (
-                <motion.div
-                  key={repo.id}
-                  initial={{ opacity: 0, y: 60, scale: 0.9, filter: "blur(12px)" }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                  viewport={{ once: true, margin: "-5%" }}
-                  transition={{
-                    duration: 0.8,
-                    delay: (index % 3) * 0.12,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="h-full"
-                >
-                  <SpotlightCard
-                    className="h-full"
-                    spotlightColor={CARD_COLORS[index % CARD_COLORS.length]}
+            return (
+              <motion.div
+                key={repo.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ type: "spring", damping: 20, stiffness: 100 }}
+                className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-8 lg:gap-16 relative z-10`}
+              >
+                {/* Visual / Polaroid side */}
+                <div className="w-full md:w-1/2 flex justify-center relative perspective-[1000px]">
+                  <motion.div 
+                    whileHover={{ scale: 1.02, rotateX: 5, rotateY: isEven ? -5 : 5 }}
+                    className={`polaroid w-full max-w-[360px] shadow-2xl relative bg-paper-white cursor-pointer ${isEven ? "-rotate-2" : "rotate-2"}`}
+                    style={{ transformStyle: "preserve-3d" }}
                   >
-                    <div className="flex flex-col h-full">
-                      {/* Gradient orb decoration */}
-                      <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-pink-500/10 to-orange-400/10 rounded-bl-full -z-10 transition-transform duration-500 group-hover:scale-150 group-hover:rotate-12" />
-                      
-                      <h3 className="font-heading text-3xl font-bold text-slate-800 mb-4 group-hover:text-violet-600 transition-colors drop-shadow-sm">
-                        {repo.name}
-                      </h3>
-                      <p className="text-slate-600 font-medium mb-8 flex-grow text-lg">
-                        {repo.name.toLowerCase().includes("grindflow") 
-                          ? "A scalable, AI-powered knowledge exchange platform with a robust TypeScript backend and intelligent matching algorithms."
-                          : repo.name.toLowerCase().includes("simulation")
-                          ? "An advanced agent-based modeling system simulating complex urban policy and traffic dynamics with AI-driven behaviors."
-                          : repo.name.toLowerCase().includes("employee-manager")
-                          ? "A comprehensive, cross-platform enterprise solution for managing employee attendance and administrative workflows."
-                          : repo.description || "Building the next generation of web experiences."}
-                      </p>
-                      
-                      {/* Demo Video Button */}
-                      {hasDemo && (
-                        <MagneticWrap strength={0.1} className="w-full mb-6">
-                          <button
-                            type="button"
-                            onClick={() => setShowDemo(true)}
-                            className="w-full flex items-center justify-center gap-3 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white font-bold text-base shadow-[0_6px_20px_rgba(139,92,246,0.3)] hover:shadow-[0_12px_32px_rgba(139,92,246,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
-                          >
-                            <motion.svg
-                              width="20" height="20" viewBox="0 0 20 20" fill="none"
-                              animate={{ scale: [1, 1.15, 1] }}
-                              transition={{ type: "tween", duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                            >
-                              <path d="M6.5 4.5L15.5 10L6.5 15.5V4.5Z" fill="white" />
-                            </motion.svg>
-                            Watch Demo
-                          </button>
-                        </MagneticWrap>
+                    <span className={`tape -top-3 ${isEven ? "left-8 rotate-[-5deg]" : "right-8 rotate-[5deg]"} w-16 h-5`} />
+                    <div className="relative aspect-video w-full overflow-hidden bg-ink/5 border border-ink/5">
+                      {repo.name.toLowerCase().includes("grindflow") ? (
+                        <img src="/projects/grindflow.png" alt="Grindflow screenshot" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
+                      ) : isEmployeeManager(repo.name) ? (
+                        <img src="/projects/employee-manager.png" alt="Employee Manager screenshot" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
+                      ) : repo.name === "Sikkim-Tourism" ? (
+                        <img src="/projects/sikkim-tourism.png" alt="Sikkim Tourism screenshot" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center opacity-10 font-heading text-6xl font-black z-0">
+                          {String(index + 1).padStart(2, '0')}
+                        </div>
                       )}
-
-                      <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-200">
-                        <div className="flex gap-4 text-sm font-semibold text-slate-500 font-mono">
-                          {repo.language && (
-                            <span className="flex items-center gap-2">
-                              <motion.span
-                                className="w-3 h-3 rounded-full bg-orange-400 shadow-sm"
-                                animate={{ scale: [1, 1.3, 1] }}
-                                transition={{ type: "tween", duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                              />
-                              {repo.language}
-                            </span>
-                          )}
-                          <span className="flex items-center gap-1 text-violet-500">
-                            ★ {repo.stargazers_count}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          {(repo.homepage || repo.name.toLowerCase().includes("grindflow")) && (
-                            <MagneticWrap strength={0.3}>
-                              <a
-                                href={repo.name.toLowerCase().includes("grindflow") ? "https://grindflow.vercel.app/" : (repo.homepage ?? undefined)}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 text-sm font-semibold hover:text-blue-600 transition-colors"
-                              >
-                                Live Demo ↗
-                              </a>
-                            </MagneticWrap>
-                          )}
-                          <MagneticWrap strength={0.3}>
-                            <a
-                              href={repo.html_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-violet-500 font-bold hover:text-violet-600 transition-all"
-                            >
-                              Code →
-                            </a>
-                          </MagneticWrap>
-                        </div>
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--ink)_1px,_transparent_1px)] bg-[size:10px_10px] opacity-[0.03] z-10 pointer-events-none" />
+                      
+                      {/* Fake preview overlay */}
+                      <div className="absolute bottom-4 left-4 right-4 h-24 bg-paper-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-ink/5 p-4 flex flex-col justify-center transform translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                         <span className="font-mono text-[10px] uppercase text-blue">Preview</span>
+                         <div className="w-2/3 h-2 bg-ink/10 rounded-full mt-2" />
+                         <div className="w-1/2 h-2 bg-ink/10 rounded-full mt-1" />
                       </div>
                     </div>
-                  </SpotlightCard>
-                </motion.div>
-              );
-            })}
-          </div>
+                    <div className="pt-3 flex justify-between items-center px-2">
+                       <span className="font-hand text-lg text-ink/80 line-clamp-1 mr-2">{repo.name}</span>
+                       <span className="font-mono text-[10px] text-coral whitespace-nowrap">★ {repo.stargazers_count}</span>
+                    </div>
+                  </motion.div>
+
+                  {/* Scribble decoration */}
+                  <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-20">
+                     <svg viewBox="0 0 200 200" fill="none" stroke="var(--coral)" strokeWidth="2" className="w-[120%] h-[120%] -ml-[10%] -mt-[10%]">
+                        <path d="M10 100 Q 50 10 100 100 T 190 100" strokeDasharray="5,5" />
+                     </svg>
+                  </div>
+                </div>
+
+                {/* Text / Details side */}
+                <div className="w-full md:w-1/2 space-y-4">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-ink/10 bg-paper-white">
+                     <span className="w-2 h-2 rounded-full bg-blue" />
+                     <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink/60">{meta.tag}</span>
+                  </div>
+
+                  <h3 className="font-heading text-2xl sm:text-3xl font-bold text-ink">
+                    {repo.name}
+                  </h3>
+
+                  <p className="font-cursive text-xl text-ink/80 leading-relaxed">
+                    {meta.desc}
+                  </p>
+
+                  <div className="flex flex-wrap gap-4 pt-4">
+                    {hasDemo && (
+                      <button
+                        type="button"
+                        onClick={() => setShowDemo(true)}
+                        className="sticker px-6 py-2.5 text-sm font-bold flex items-center gap-2 hover:text-coral transition-colors"
+                      >
+                        <span className="text-coral">▶</span> Play Demo
+                      </button>
+                    )}
+                    {(repo.homepage || repo.name.toLowerCase().includes("grindflow")) && (
+                      <a
+                        href={repo.name.toLowerCase().includes("grindflow") ? "https://grindflow.vercel.app/" : (repo.homepage ?? undefined)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="sticker px-6 py-2.5 text-sm font-bold flex items-center gap-2 hover:text-blue transition-colors"
+                      >
+                        Live Site ↗
+                      </a>
+                    )}
+                    <a
+                      href={repo.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-6 py-2.5 text-sm font-bold font-mono text-ink/50 hover:text-ink transition-colors flex items-center gap-2 underline decoration-wavy underline-offset-4"
+                    >
+                      Code Repo →
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 

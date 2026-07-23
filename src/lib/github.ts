@@ -275,7 +275,7 @@ export const getGitHubPortfolioData = cache(async function getGitHubPortfolioDat
           description: "A comprehensive workforce management system for City Fire Services. Features dual Flutter mobile apps (admin & employee) and a Next.js admin portal, backed by Supabase. Includes live GPS tracking, Mapbox integration, biometric auth, and OCR receipt scanning.",
           html_url: "https://github.com/puravbhatt0504/employee-manager-final",
           homepage: "https://employee-manager-final.vercel.app",
-          stargazers_count: 1,
+          stargazers_count: 2,
           forks_count: 0,
           language: "Dart",
           topics: ["flutter", "dart", "nextjs", "supabase", "mapbox", "ocr", "gps-tracking"],

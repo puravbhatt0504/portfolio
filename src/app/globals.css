@@ -1,18 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --muted: #64748b;
-  --accent-pink: #ec4899;
-  --accent-blue: #3b82f6;
+  /* Core Scrapbook Palette */
+  --ink: #1c1917;
+  --paper: #fdfbf7;
+  --paper-white: #ffffff;
+  --coral: #f43f5e;
+  --coral-soft: #fb7185;
+  --blue: #3b82f6;
+  --green: #10b981;
+  --tape: rgba(255, 255, 255, 0.4);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-space-grotesk);
-  --font-heading: var(--font-syne);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-paper-white: var(--paper-white);
+  --color-coral: var(--coral);
+  --color-coral-soft: var(--coral-soft);
+  --color-blue: var(--blue);
+  --color-green: var(--green);
+  --color-tape: var(--tape);
+  --font-sans: var(--font-outfit);
+  --font-heading: var(--font-outfit);
   --font-mono: var(--font-jetbrains);
 }
 
@@ -22,11 +32,10 @@
 
 html,
 body {
-  color: var(--foreground);
-  font-family: var(--font-space-grotesk), sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--font-outfit), sans-serif;
 }
-
-
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar,
@@ -41,44 +50,31 @@ body {
 }
 
 ::selection {
-  background: rgba(236, 72, 153, 0.28);
-  color: #0f172a;
+  background: var(--coral);
+  color: var(--paper-white);
 }
-
-@media (min-width: 1024px) {
-  body[data-portfolio-home="true"] {
-    overflow: hidden;
-  }
-}
-
-
-
 
 /* === Typographic System === */
-
-/* Heading font — Syne: used for all major headings */
 .font-heading {
-  font-family: var(--font-syne), sans-serif;
+  font-family: var(--font-outfit), sans-serif;
   letter-spacing: -0.03em;
 }
 
-/* Mono font — JetBrains Mono: used for labels, locations, code-like text */
 .font-mono {
   font-family: var(--font-jetbrains), ui-monospace, monospace;
 }
 
-/* Standardized tracking tiers */
-.tracking-display {
-  letter-spacing: -0.04em;
+.font-hand {
+  font-family: var(--font-permanent-marker), cursive;
 }
 
-.tracking-tight {
-  letter-spacing: -0.02em;
+.font-cursive {
+  font-family: var(--font-caveat), cursive;
 }
 
-.tracking-label {
-  letter-spacing: 0.25em;
-}
+.tracking-display { letter-spacing: -0.04em; }
+.tracking-tight { letter-spacing: -0.02em; }
+.tracking-label { letter-spacing: 0.25em; }
 
 .line-clamp-3 {
   display: -webkit-box;
@@ -88,3 +84,66 @@ body {
   line-clamp: 3;
 }
 
+/* === Animations === */
+
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 30s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 25s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* === Scrapbook UI Elements === */
+
+.sticker {
+  background-color: var(--paper-white);
+  padding: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.polaroid {
+  background-color: var(--paper-white);
+  padding: 0.5rem 0.5rem 2.5rem 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.tape {
+  position: absolute;
+  background-color: var(--tape);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  border-left: 1px dashed rgba(0,0,0,0.1);
+  border-right: 1px dashed rgba(0,0,0,0.1);
+  opacity: 0.8;
+  z-index: 10;
+}
+
+.section-divider {
+  height: 2px;
+  background: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,1 Q10,2 20,0 T40,1 T60,0 T80,1 T100,0' stroke='%23f43f5e' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-size: 100px 100%;
+  margin: 0 auto;
+  max-width: 60%;
+  opacity: 0.5;
+}

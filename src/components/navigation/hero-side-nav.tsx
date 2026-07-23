@@ -94,7 +94,7 @@ export function HeroSideNav() {
             setActiveSection(id);
           }
         },
-        { threshold: 0.3 }
+        { rootMargin: "-30% 0px -50% 0px", threshold: 0 }
       );
 
       observer.observe(element);
@@ -173,7 +173,7 @@ export function HeroSideNav() {
         className="fixed bottom-5 left-1/2 -translate-x-1/2 z-[120] flex md:hidden"
         aria-label="Section navigation"
       >
-        <div className="rounded-full border border-white/30 bg-white/60 backdrop-blur-2xl shadow-[0_8px_32px_rgba(31,38,135,0.12)] p-1.5 flex items-center gap-1">
+        <div className="rounded-full border-2 border-ink/10 bg-paper-white shadow-lg p-1.5 flex items-center gap-1">
           {NAV_BUBBLES.map((bubble) => {
             const isActive = activeSection === bubble.id;
             const Icon = bubble.icon;
@@ -184,13 +184,13 @@ export function HeroSideNav() {
                 onClick={() => scrollToSection(bubble.id)}
                 className={cn(
                   "relative flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 cursor-pointer",
-                  isActive ? "text-white scale-110" : "text-slate-400"
+                  isActive ? "text-paper-white scale-110" : "text-ink/40"
                 )}
               >
                 {isActive && (
                   <motion.span
                     layoutId="mobile-bubble-active"
-                    className="absolute inset-0 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 shadow-[0_4px_16px_rgba(139,92,246,0.4)]"
+                    className="absolute inset-0 rounded-full bg-coral z-0"
                     transition={{ type: "spring", stiffness: 400, damping: 28 }}
                   />
                 )}
@@ -316,8 +316,7 @@ function NavBubble({
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={cn(
                 "absolute -inset-1.5 rounded-full",
-                "bg-gradient-to-br from-violet-400/30 via-fuchsia-400/20 to-pink-400/30",
-                "blur-[2px]"
+                "bg-coral/20 blur-[4px]"
               )}
             />
           )}
@@ -331,7 +330,7 @@ function NavBubble({
               animate={{ scale: [1, 1.3, 1.5], opacity: [0.4, 0.15, 0] }}
               exit={{ opacity: 0 }}
               transition={{ type: "tween", duration: 1.2, repeat: Infinity, ease: "easeOut" }}
-              className={cn(sizes.bubble, "absolute inset-0 rounded-full border-2 border-violet-400/40")}
+              className={cn(sizes.bubble, "absolute inset-0 rounded-full border-2 border-coral/40")}
             />
           )}
         </AnimatePresence>
@@ -341,19 +340,19 @@ function NavBubble({
           animate={{
             scale: isHovered ? 1.15 : 1,
             boxShadow: isHovered
-              ? "0 8px 40px rgba(139,92,246,0.25), 0 0 0 1px rgba(139,92,246,0.15)"
+              ? "0 8px 24px rgba(244, 63, 94, 0.25), 0 0 0 2px rgba(244, 63, 94, 0.15)"
               : isActive
-                ? "0 6px 28px rgba(139,92,246,0.18), 0 0 0 1px rgba(139,92,246,0.12)"
-                : "0 4px 20px rgba(31,38,135,0.08), 0 0 0 1px rgba(255,255,255,0.4)",
+                ? "0 6px 20px rgba(244, 63, 94, 0.18), 0 0 0 2px rgba(244, 63, 94, 0.12)"
+                : "0 4px 12px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.05)",
           }}
           transition={{ type: "spring", stiffness: 400, damping: 22 }}
           className={cn(
             sizes.bubble,
             "rounded-full flex flex-col items-center justify-center gap-1 relative overflow-hidden",
-            "backdrop-blur-2xl border transition-colors duration-300",
+            "border-2 transition-colors duration-300",
             isActive
-              ? "bg-white/90 border-violet-300/50"
-              : "bg-white/60 border-white/40 hover:bg-white/80 hover:border-violet-200/40"
+              ? "bg-coral border-coral shadow-md"
+              : "bg-paper-white border-ink/10 hover:bg-ink/5 hover:border-ink/20 shadow-sm"
           )}
         >
           {/* Spotlight glow */}
@@ -364,7 +363,7 @@ function NavBubble({
             className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             style={{
               background:
-                "linear-gradient(135deg, rgba(139,92,246,0.06) 0%, transparent 50%, rgba(236,72,153,0.04) 100%)",
+                "linear-gradient(135deg, rgba(244, 63, 94, 0.08) 0%, transparent 50%, rgba(244, 63, 94, 0.04) 100%)",
             }}
           />
 
@@ -383,8 +382,8 @@ function NavBubble({
                 sizes.icon,
                 "transition-colors duration-300",
                 isActive
-                  ? "text-violet-600"
-                  : "text-slate-400 group-hover:text-violet-500"
+                  ? "text-paper-white"
+                  : "text-ink/40 group-hover:text-ink/80"
               )}
             />
           </motion.span>
@@ -398,8 +397,8 @@ function NavBubble({
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className={cn(
               sizes.text,
-              "relative z-10 font-semibold uppercase tracking-[0.18em] whitespace-nowrap",
-              isActive ? "text-violet-700" : "text-slate-500 group-hover:text-slate-700"
+              "relative z-10 font-bold uppercase tracking-[0.18em] whitespace-nowrap",
+              isActive ? "text-paper-white" : "text-ink/40 group-hover:text-ink/80"
             )}
           >
             {bubble.label}
@@ -414,7 +413,7 @@ function NavBubble({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0 }}
               transition={{ type: "spring", stiffness: 500, damping: 20 }}
-              className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-violet-500 shadow-[0_0_8px_rgba(139,92,246,0.6)]"
+              className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-coral shadow-[0_0_8px_rgba(244,63,94,0.6)]"
             />
           )}
         </AnimatePresence>
@@ -436,7 +435,7 @@ function SpotlightGlow({
   const bg = useTransform(
     [spotX, spotY],
     ([x, y]) =>
-      `radial-gradient(60px circle at ${x}px ${y}px, rgba(139,92,246,0.18), transparent 70%)`
+      `radial-gradient(60px circle at ${x}px ${y}px, rgba(244, 63, 94, 0.15), transparent 70%)`
   );
 
   return (

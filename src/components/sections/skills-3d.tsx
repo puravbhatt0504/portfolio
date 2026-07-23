@@ -1,172 +1,91 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 
-import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { TextShimmer, FloatingParticles } from "@/components/ui/motion-effects";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+const ALL_SKILLS = [
+  { name: "TypeScript", icon: "ts" },
+  { name: "React", icon: "react" },
+  { name: "Next.js", icon: "next" },
+  { name: "Python", icon: "py" },
+  { name: "Flutter", icon: "flutter" },
+  { name: "Tailwind", icon: "tailwind" },
+  { name: "JavaScript", icon: "js" },
+  { name: "Vite", icon: "vite" },
+  { name: "Supabase", icon: "supabase" },
+  { name: "Firebase", icon: "firebase" },
+  { name: "PostgreSQL", icon: "postgres" },
+  { name: "Git", icon: "git" },
+];
 
 export function Skills3D() {
-  const container = useRef<HTMLElement>(null);
-  const headline = useRef<HTMLHeadingElement>(null);
+  const container = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
 
-  useGSAP(() => {
-    gsap.from(headline.current, {
-      scrollTrigger: {
-        trigger: container.current,
-        start: "top 80%",
-      },
-      y: 30,
-      opacity: 0,
-      duration: 0.6,
-      ease: "power2.out"
-    });
-  }, { scope: container });
-
-  const techCategories = [
-    {
-      title: "Languages",
-      color: "rgba(249,115,22,0.10)",
-      skills: [
-        { name: "TypeScript", icon: "ts" },
-        { name: "JavaScript", icon: "js" },
-        { name: "Python", icon: "py" },
-        { name: "Dart", icon: "dart" },
-        { name: "HTML5", icon: "html" },
-        { name: "CSS3", icon: "css" },
-      ]
-    },
-    {
-      title: "Frameworks & Libraries",
-      color: "rgba(139,92,246,0.10)",
-      skills: [
-        { name: "React", icon: "react" },
-        { name: "Next.js", icon: "next" },
-        { name: "Flutter", icon: "flutter" },
-        { name: "Flask", icon: "flask" },
-        { name: "TailwindCSS", icon: "tailwind" },
-        { name: "Vite", icon: "vite" },
-      ]
-    },
-    {
-      title: "Backend & Infrastructure",
-      color: "rgba(59,130,246,0.10)",
-      skills: [
-        { name: "Supabase", icon: "supabase" },
-        { name: "Firebase", icon: "firebase" },
-        { name: "PostgreSQL", icon: "postgres" },
-        { name: "Vercel", icon: "vercel" },
-        { name: "Git", icon: "git" },
-      ]
-    }
-  ];
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
-    <section ref={container} id="skills" className="min-h-screen flex flex-col justify-center px-4 md:px-20 py-20 relative z-10">
-      <FloatingParticles count={10} seed={137} colors={["bg-blue-400/15", "bg-violet-400/15", "bg-orange-400/10", "bg-fuchsia-400/10"]} />
+    <section id="skills" className="relative px-6 md:px-20 py-12 z-10 overflow-hidden flex flex-col items-center">
+      <div className="section-divider mb-8" />
 
-      <div className="max-w-6xl mx-auto w-full">
-        <h2 
-          ref={headline}
-          className="font-heading text-4xl md:text-7xl font-extrabold mb-20 text-center text-slate-900"
-        >
-          Tech & <TextShimmer className="drop-shadow-sm text-4xl md:text-7xl font-extrabold font-heading">Tools</TextShimmer>
+      <div className="text-center mb-8 relative z-20">
+        <h2 className="font-heading text-4xl sm:text-5xl font-bold text-ink mb-4">
+          My Toolkit
         </h2>
+        <p className="font-hand text-xl text-coral/80 -rotate-2">
+          (drag 'em around!)
+        </p>
+      </div>
 
-        <div className="space-y-16">
-          {techCategories.map((category, catIndex) => (
+      <div ref={container} className="relative w-full max-w-4xl h-[250px] flex flex-wrap justify-center content-center gap-4 z-20">
+        {mounted && ALL_SKILLS.map((skill, i) => {
+          // Generate a somewhat random but deterministic rotation and offset for the initial scatter
+          const randomRotate = (i % 3 === 0 ? -1 : 1) * ((i % 5) * 2 + 2);
+          const randomY = (i % 2 === 0 ? 1 : -1) * ((i % 3) * 10);
+          
+          return (
             <motion.div
-              key={category.title}
-              initial={{ opacity: 0, x: -60, filter: "blur(12px)" }}
-              whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              viewport={{ once: true, margin: "-5%" }}
-              transition={{
-                duration: 0.9,
-                delay: catIndex * 0.15,
-                ease: [0.16, 1, 0.3, 1],
+              key={skill.name}
+              drag
+              dragConstraints={container}
+              dragElastic={0.2}
+              whileDrag={{ scale: 1.1, rotate: 0, zIndex: 50, cursor: "grabbing" }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ 
+                type: "spring", 
+                damping: 12, 
+                stiffness: 150, 
+                delay: i * 0.05 
               }}
+              style={{ rotate: randomRotate, y: randomY }}
+              className="sticker flex items-center gap-3 px-4 py-2 cursor-grab select-none hover:border-coral/30 hover:shadow-lg transition-colors group bg-paper-white"
             >
-              <SpotlightCard spotlightColor={category.color}>
-                <h3 className="font-heading text-2xl md:text-3xl font-bold mb-8 text-slate-800 border-b border-slate-200/60 pb-4">
-                  {category.title}
-                </h3>
-                <div className="flex flex-wrap gap-8 justify-center md:justify-start">
-                  {category.skills.map((skill, skillIndex) => (
-                    <SkillBubble
-                      key={skill.name}
-                      skill={skill}
-                      index={skillIndex}
-                      catDelay={catIndex * 0.15}
-                    />
-                  ))}
-                </div>
-              </SpotlightCard>
+              <span className="tape -top-2 left-1/2 -translate-x-1/2 w-8 h-3 -rotate-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <img
+                src={`https://skillicons.dev/icons?i=${skill.icon}`}
+                alt={skill.name}
+                className="w-6 h-6 pointer-events-none"
+                draggable={false}
+              />
+              <span className="text-sm font-bold text-ink/80 pointer-events-none whitespace-nowrap font-mono">
+                {skill.name}
+              </span>
             </motion.div>
-          ))}
-        </div>
+          );
+        })}
+      </div>
+      
+      {/* Decorative doodle in the background */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] opacity-[0.03] pointer-events-none flex items-center justify-center">
+         <svg viewBox="0 0 200 200" fill="currentColor" className="w-full h-full max-w-md">
+            <path d="M100 0C44.8 0 0 44.8 0 100s44.8 100 100 100 100-44.8 100-100S155.2 0 100 0zm0 180c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z" />
+            <path d="M100 40c-33.1 0-60 26.9-60 60s26.9 60 60 60 60-26.9 60-60-26.9-60-60-60zm0 100c-22.1 0-40-17.9-40-40s17.9-40 40-40 40 17.9 40 40-17.9 40-40 40z" />
+         </svg>
       </div>
     </section>
-  );
-}
-
-/* ─── Individual Skill Bubble ─── */
-function SkillBubble({
-  skill,
-  index,
-  catDelay,
-}: {
-  skill: { name: string; icon: string };
-  index: number;
-  catDelay: number;
-}) {
-  return (
-    <motion.div
-      className="skill-icon flex flex-col items-center gap-3 group cursor-default"
-      initial={{ opacity: 0, scale: 0, filter: "blur(6px)" }}
-      whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-      viewport={{ once: true }}
-      transition={{
-        delay: catDelay + index * 0.06 + 0.3,
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-      }}
-    >
-      <motion.div
-        className="relative w-20 h-20 rounded-2xl bg-white shadow-sm flex items-center justify-center border border-slate-100 overflow-hidden"
-        whileHover={{
-          scale: 1.18,
-          y: -8,
-          rotate: -3,
-          boxShadow: "0 16px 40px rgba(139,92,246,0.15), 0 0 0 2px rgba(139,92,246,0.1)",
-        }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: "spring", stiffness: 400, damping: 15 }}
-      >
-        {/* Shimmer overlay on hover */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 group-hover:opacity-100 -skew-x-12"
-          initial={{ x: "-100%" }}
-          whileHover={{ x: "200%" }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        />
-        <img 
-          src={`https://skillicons.dev/icons?i=${skill.icon}`} 
-          alt={`${skill.name} logo`} 
-          className="w-12 h-12 relative z-10"
-        />
-      </motion.div>
-      <motion.span
-        className="text-sm font-medium text-slate-600 transition-colors duration-300 group-hover:text-violet-600"
-        whileHover={{ scale: 1.05 }}
-      >
-        {skill.name}
-      </motion.span>
-    </motion.div>
   );
 }

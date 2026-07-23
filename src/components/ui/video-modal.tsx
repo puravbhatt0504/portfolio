@@ -67,30 +67,30 @@ export function VideoModal({ isOpen, onClose, src, title }: VideoModalProps) {
 
           {/* Content — adapts to any video aspect ratio */}
           <motion.div
-            className="relative flex flex-col max-w-4xl w-full max-h-[90vh] bg-white/95 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-white/40"
+            className="relative flex flex-col max-w-4xl w-full max-h-[90vh] bg-paper-white rounded-xl overflow-hidden shadow-2xl border-2 border-ink/10"
             initial={{ scale: 0.9, y: 30, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.9, y: 30, opacity: 0 }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200/40 shrink-0">
+            <div className="flex items-center justify-between px-6 py-4 border-b-2 border-ink/10 shrink-0">
               <div>
                 <p className="text-xs uppercase tracking-label text-pink-500/90 font-semibold font-mono">
                   Project Demo
                 </p>
-                <h3 className="font-heading text-xl font-bold text-slate-800 mt-1">
+                <h3 className="font-heading text-xl font-bold text-ink mt-1">
                   {title}
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={onClose}
-                className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors cursor-pointer"
+                className="w-10 h-10 rounded-full bg-ink/5 hover:bg-ink/10 flex items-center justify-center transition-colors cursor-pointer"
                 aria-label="Close video"
               >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4.5 4.5L13.5 13.5M4.5 13.5L13.5 4.5" stroke="#475569" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M4.5 4.5L13.5 13.5M4.5 13.5L13.5 4.5" stroke="var(--ink)" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </button>
             </div>

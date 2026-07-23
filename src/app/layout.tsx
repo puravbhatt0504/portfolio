@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Syne, JetBrains_Mono } from "next/font/google";
+import { Outfit, Permanent_Marker, JetBrains_Mono, Caveat } from "next/font/google";
 
 import { AudioProvider } from "@/components/providers/audio-provider";
 import { HeroSideNav } from "@/components/navigation/hero-side-nav";
@@ -9,14 +9,20 @@ import { GlobalBackground } from "@/components/ui/global-background";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
-const bodyFont = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const outfitFont = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
-const headingFont = Syne({
-  variable: "--font-syne",
+const permanentMarkerFont = Permanent_Marker({
+  weight: "400",
+  variable: "--font-permanent-marker",
   subsets: ["latin"],
+});
+
+const caveatFont = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
 });
 
 const monoFont = JetBrains_Mono({
@@ -51,7 +57,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f8fafc",
+  themeColor: "#fdfbf7",
   colorScheme: "light",
 };
 
@@ -63,9 +69,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bodyFont.variable} ${headingFont.variable} ${monoFont.variable} h-full antialiased`}
+      className={`${outfitFont.variable} ${permanentMarkerFont.variable} ${caveatFont.variable} ${monoFont.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-paper text-ink">
         <AudioProvider>
           <GlobalBackground />
 

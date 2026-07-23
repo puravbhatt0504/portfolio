@@ -18,26 +18,26 @@ type GlowingBorderCardProps = {
 export function GlowingBorderCard({
   children,
   className,
-  glowColors = "from-violet-500 via-fuchsia-500 to-pink-500",
+  glowColors = "from-violet-500 via-fuchsia-500 to-cyan-500",
 }: GlowingBorderCardProps) {
   return (
-    <div className={cn("group relative rounded-3xl p-px overflow-hidden", className)}>
+    <div className={cn("group relative rounded-2xl p-px overflow-hidden", className)}>
       {/* Rotating gradient border */}
       <motion.div
         className={cn(
-          "absolute inset-0 rounded-3xl bg-gradient-conic opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm",
+          "absolute inset-0 rounded-2xl bg-gradient-conic opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm",
           glowColors
         )}
         animate={{ rotate: 360 }}
         transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-        style={{ background: `conic-gradient(from 0deg, #8b5cf6, #d946ef, #ec4899, #f97316, #8b5cf6)` }}
+        style={{ background: `conic-gradient(from 0deg, #8b5cf6, #22d3ee, #d946ef, #f97066, #8b5cf6)` }}
       />
 
       {/* Static subtle border fallback */}
-      <div className="absolute inset-0 rounded-3xl border border-white/30 group-hover:border-transparent transition-colors duration-500" />
+      <div className="absolute inset-0 rounded-2xl border border-white/[0.06] group-hover:border-transparent transition-colors duration-500" />
 
-      {/* Card body */}
-      <div className="relative z-10 rounded-3xl bg-white/70 backdrop-blur-xl p-6 md:p-8">
+      {/* Card body — dark glass */}
+      <div className="relative z-10 rounded-2xl bg-white/[0.03] backdrop-blur-xl p-6 md:p-8">
         {children}
       </div>
     </div>
@@ -45,7 +45,7 @@ export function GlowingBorderCard({
 }
 
 /**
- * TextShimmer — Text with animated gradient shimmer effect
+ * TextShimmer — Text with animated gradient shimmer (dark theme: cyan → violet → coral)
  */
 type TextShimmerProps = {
   children: string;
@@ -56,7 +56,7 @@ export function TextShimmer({ children, className }: TextShimmerProps) {
   return (
     <motion.span
       className={cn(
-        "bg-clip-text text-transparent bg-[length:200%_100%] bg-gradient-to-r from-violet-600 via-fuchsia-500 to-violet-600",
+        "bg-clip-text text-transparent bg-[length:200%_100%] bg-gradient-to-r from-cyan-400 via-violet-400 to-fuchsia-400",
         className
       )}
       animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}

@@ -1,39 +1,36 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
-import { BackgroundScene } from "../three/background-scene";
-
 export function GlobalBackground() {
   return (
     <>
-      <div 
-        className="fixed inset-0 -z-30 pointer-events-none bg-gradient-to-b from-slate-50 to-slate-100" 
-      />
-      <div 
-        dangerouslySetInnerHTML={{
-          __html: `
-            <video
-              class="fixed inset-0 w-full h-full object-cover -z-20 pointer-events-none"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="auto"
-            >
-              <source src="/hero.mp4" type="video/mp4" />
-            </video>
-          `
+      {/* Base light paper color is handled in layout.tsx via bg-paper */}
+
+      {/* Sketched / faint dot grid overlay */}
+      <div
+        className="fixed inset-0 -z-25 pointer-events-none opacity-40"
+        style={{
+          backgroundImage: `radial-gradient(rgba(0,0,0,0.06) 1.5px, transparent 1.5px)`,
+          backgroundSize: "32px 32px",
         }}
       />
-      <div className="fixed inset-0 bg-white/70 backdrop-blur-[2px] -z-10 pointer-events-none" />
 
-      {/* Three.js Canvas Layer */}
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
-          <ambientLight intensity={0.5} />
-          <BackgroundScene />
-        </Canvas>
-      </div>
+      {/* Rough paper grain texture overlay */}
+      <div
+        className="fixed inset-0 -z-10 pointer-events-none opacity-20 mix-blend-multiply"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E")`,
+          backgroundRepeat: "repeat",
+          backgroundSize: "200px 200px",
+        }}
+      />
+
+      {/* Vignette to make edges slightly darker */}
+      <div
+        className="fixed inset-0 -z-20 pointer-events-none rounded-2xl"
+        style={{
+          boxShadow: "inset 0 0 100px rgba(0,0,0,0.03), inset 0 0 30px rgba(0,0,0,0.02)",
+        }}
+      />
     </>
   );
 }
