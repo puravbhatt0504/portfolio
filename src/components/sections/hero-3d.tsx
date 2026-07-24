@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { GitHubUser, PortfolioStats } from "@/types/github";
 import { siteConfig } from "@/lib/site";
+import Image from "next/image";
 
 type Hero3DProps = {
   user: GitHubUser;
@@ -113,10 +114,14 @@ export function Hero3D({ user, stats }: Hero3DProps) {
                 {/* Fallback pattern if no avatar, using Github avatar */}
                 <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--ink)_2px,_transparent_2px)] bg-[size:16px_16px]" />
                 
-                <motion.img 
-                  src={user.avatar_url} 
+                <Image 
+                  src="/profile.jpeg" 
                   alt={user.name || "Avatar"} 
-                  className="w-full h-full object-cover grayscale mix-blend-multiply opacity-90 group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-500"
+                  fill
+                  quality={100}
+                  priority
+                  unoptimized
+                  className="object-cover object-right"
                 />
               </div>
 
