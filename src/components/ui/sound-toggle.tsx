@@ -3,9 +3,12 @@
 import { motion } from "framer-motion";
 
 import { useAudioLayer } from "@/components/providers/audio-provider";
+import { useIsScrolling } from "@/hooks/use-is-scrolling";
+import { cn } from "@/lib/cn";
 
 export function SoundToggle() {
   const { muted, toggleMute, play } = useAudioLayer();
+  const isScrolling = useIsScrolling(200);
 
   return (
     <motion.button
@@ -17,7 +20,10 @@ export function SoundToggle() {
         const pan = (event.clientX / window.innerWidth) * 2 - 1;
         play(360, 0.015, pan);
       }}
-      className="fixed bottom-5 right-5 z-[130] sticker px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-ink/50 transition hover:text-coral hover:-translate-y-1 cursor-pointer bg-paper-white"
+      className={cn(
+        "fixed bottom-5 right-5 z-[130] sticker px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-ink/50 transition hover:text-coral cursor-pointer bg-paper-white mix-blend-multiply transition-opacity duration-300",
+        isScrolling ? "opacity-20 pointer-events-none" : "opacity-100 pointer-events-auto hover:-translate-y-1"
+      )}
       whileTap={{ scale: 0.95 }}
       data-cursor="interactive"
       type="button"

@@ -12,6 +12,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useCallback, useRef } from "react";
 
 import { useMotionSound } from "@/hooks/use-motion-sound";
+import { useIsScrolling } from "@/hooks/use-is-scrolling";
 import { cn } from "@/lib/cn";
 
 /* ─── Bubble Configuration ─── */
@@ -77,6 +78,7 @@ export function HeroSideNav() {
   const { play } = useMotionSound();
   const [activeSection, setActiveSection] = useState("hero");
   const isHomePage = pathname === "/";
+  const isScrolling = useIsScrolling(200);
 
   // Track which section is currently in view via IntersectionObserver
   useEffect(() => {
@@ -118,7 +120,13 @@ export function HeroSideNav() {
   return (
     <>
       {/* Desktop: Floating bubbles on both sides */}
-      <div className="fixed inset-0 z-[110] pointer-events-none hidden md:block" aria-label="Section navigation">
+      <div 
+        className={cn(
+          "fixed inset-0 z-[110] pointer-events-none hidden md:block transition-opacity duration-300 mix-blend-multiply",
+          isScrolling ? "opacity-20" : "opacity-100"
+        )} 
+        aria-label="Section navigation"
+      >
         {/* Left bubbles */}
         {leftBubbles.map((bubble) => (
           <NavBubble
@@ -170,7 +178,10 @@ export function HeroSideNav() {
 
       {/* Mobile: Compact bottom bubble bar */}
       <nav
-        className="fixed bottom-5 left-1/2 -translate-x-1/2 z-[120] flex md:hidden"
+        className={cn(
+          "fixed bottom-5 left-1/2 -translate-x-1/2 z-[120] flex md:hidden transition-opacity duration-300 mix-blend-multiply",
+          isScrolling ? "opacity-20 pointer-events-none" : "opacity-100 pointer-events-auto"
+        )}
         aria-label="Section navigation"
       >
         <div className="rounded-full border-2 border-ink/10 bg-paper-white shadow-lg p-1.5 flex items-center gap-1">

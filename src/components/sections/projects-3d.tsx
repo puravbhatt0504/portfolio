@@ -68,13 +68,28 @@ export function Projects3D({ repos }: Projects3DProps) {
         </div>
 
         <div className="max-w-5xl mx-auto flex flex-col gap-20 relative">
-          {/* Animated Connecting Line */}
-          <div className="absolute left-1/2 top-24 bottom-24 w-px -translate-x-1/2 pointer-events-none hidden md:block z-0">
-            <div className="w-full h-full border-l-2 border-dashed border-ink/10" />
-            <motion.div 
-              className="absolute top-0 left-0 w-full border-l-2 border-dashed border-coral origin-top"
-              style={{ height: lineHeight }}
-            />
+          {/* Animated Sideways Connecting Line */}
+          <div className="absolute left-1/2 top-32 bottom-32 w-full max-w-[800px] -translate-x-1/2 pointer-events-none hidden md:block z-0">
+            <svg className="w-full h-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
+               <path 
+                 d="M 50 0 C 100 11, 100 22, 50 33 C 0 44, 0 55, 50 66 C 100 77, 100 88, 50 100" 
+                 fill="none" 
+                 stroke="currentColor" 
+                 strokeWidth="1" 
+                 strokeDasharray="2 2" 
+                 className="text-ink/10"
+                 vectorEffect="non-scaling-stroke"
+               />
+               <motion.path 
+                 d="M 50 0 C 100 11, 100 22, 50 33 C 0 44, 0 55, 50 66 C 100 77, 100 88, 50 100" 
+                 fill="none" 
+                 stroke="var(--coral)" 
+                 strokeWidth="2" 
+                 strokeDasharray="2 2"
+                 vectorEffect="non-scaling-stroke"
+                 style={{ pathLength: scrollYProgress }}
+               />
+            </svg>
           </div>
           {topRepos.map((repo, index) => {
             const meta = PROJECT_META[repo.name] || {
@@ -91,7 +106,7 @@ export function Projects3D({ repos }: Projects3DProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ type: "spring", damping: 20, stiffness: 100 }}
-                className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-8 lg:gap-16 relative z-10`}
+                className="flex flex-col md:flex-row-reverse items-center gap-8 lg:gap-16 relative z-10"
               >
                 {/* Visual / Polaroid side */}
                 <div className="w-full md:w-1/2 flex justify-center relative perspective-[1000px]">
@@ -101,7 +116,12 @@ export function Projects3D({ repos }: Projects3DProps) {
                     style={{ transformStyle: "preserve-3d" }}
                   >
                     <span className={`tape -top-3 ${isEven ? "left-8 rotate-[-5deg]" : "right-8 rotate-[5deg]"} w-16 h-5`} />
-                    <div className="relative aspect-video w-full overflow-hidden bg-ink/5 border border-ink/5">
+                    <div className="relative aspect-video w-full overflow-hidden bg-ink/5 border border-ink/5 group">
+                      {/* Number Overlay */}
+                      <div className="absolute top-3 left-3 z-20 bg-paper-white text-ink rounded-full w-8 h-8 flex items-center justify-center font-heading text-sm font-bold shadow-md border border-ink/10">
+                        {String(index + 1).padStart(2, '0')}
+                      </div>
+                      
                       {repo.name.toLowerCase().includes("grindflow") ? (
                         <img src="/projects/grindflow.png" alt="Grindflow screenshot" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
                       ) : isEmployeeManager(repo.name) ? (
@@ -116,7 +136,7 @@ export function Projects3D({ repos }: Projects3DProps) {
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--ink)_1px,_transparent_1px)] bg-[size:10px_10px] opacity-[0.03] z-10 pointer-events-none" />
                       
                       {/* Fake preview overlay */}
-                      <div className="absolute bottom-4 left-4 right-4 h-24 bg-paper-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-ink/5 p-4 flex flex-col justify-center transform translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                      <div className="absolute bottom-4 left-4 right-4 h-24 bg-paper-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-ink/5 p-4 flex flex-col justify-center transform translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all z-20">
                          <span className="font-mono text-[10px] uppercase text-blue">Preview</span>
                          <div className="w-2/3 h-2 bg-ink/10 rounded-full mt-2" />
                          <div className="w-1/2 h-2 bg-ink/10 rounded-full mt-1" />
@@ -137,13 +157,16 @@ export function Projects3D({ repos }: Projects3DProps) {
                 </div>
 
                 {/* Text / Details side */}
-                <div className="w-full md:w-1/2 space-y-4">
+                <div className="w-full md:w-1/2 space-y-4 bg-paper/95 backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-[0_0_40px_20px_var(--paper)]">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-ink/10 bg-paper-white">
                      <span className="w-2 h-2 rounded-full bg-blue" />
                      <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink/60">{meta.tag}</span>
                   </div>
 
-                  <h3 className="font-heading text-2xl sm:text-3xl font-bold text-ink">
+                  <h3 className="font-heading text-2xl sm:text-3xl font-bold text-ink flex items-center gap-4">
+                    <div className="bg-paper-white text-coral/80 rounded-full w-10 h-10 flex shrink-0 items-center justify-center font-mono text-lg font-light shadow-md border border-ink/10">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
                     {repo.name}
                   </h3>
 
