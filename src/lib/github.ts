@@ -220,6 +220,87 @@ function buildPortfolioStats(
   };
 }
 
+const MOCK_REPOS: GitHubRepo[] = [
+  {
+    id: "3",
+    name: "employee-manager-final",
+    description: "A comprehensive workforce management system for City Fire Services. Features dual Flutter mobile apps (admin & employee) and a Next.js admin portal, backed by Supabase. Includes live GPS tracking, Mapbox integration, biometric auth, and OCR receipt scanning.",
+    html_url: "https://github.com/puravbhatt0504/employee-manager-final",
+    homepage: "https://employee-manager-final.vercel.app",
+    stargazers_count: 2,
+    forks_count: 0,
+    language: "Dart",
+    topics: ["flutter", "dart", "nextjs", "supabase", "mapbox", "ocr", "gps-tracking"],
+    updated_at: new Date().toISOString(),
+    fork: false,
+  },
+  {
+    id: "2",
+    name: "grindflow",
+    description: "AI-powered peer-to-peer knowledge exchange platform. Built with a robust TypeScript backend (Node.js/Express) and an interactive frontend to facilitate seamless knowledge graph creation and intelligent matching.",
+    html_url: "https://github.com/puravbhatt0504/grindflow",
+    homepage: null,
+    stargazers_count: 1,
+    forks_count: 3,
+    language: "TypeScript",
+    topics: ["ai", "typescript", "nodejs", "knowledge-graph", "peer-to-peer"],
+    updated_at: new Date().toISOString(),
+    fork: false,
+  },
+  {
+    id: "5",
+    name: "urban-policy-simulation",
+    description: "A complex simulation tool for urban planning and policy impact analysis. Uses data-driven models to predict and visualize the outcomes of city-wide policy changes on infrastructure and population metrics.",
+    html_url: "https://github.com/puravbhatt0504/urban-policy-simulation",
+    homepage: null,
+    stargazers_count: 0,
+    forks_count: 0,
+    language: "TypeScript",
+    topics: ["simulation", "policy", "urban-planning", "data-visualization"],
+    updated_at: new Date().toISOString(),
+    fork: false,
+  },
+  {
+    id: "1",
+    name: "Quote-me-",
+    description: "A professional Next.js web app for generating fire safety quotations. Features a dynamic product catalog, real-time tax/discount calculations, live previews with branding, and one-click Excel export.",
+    html_url: "https://github.com/puravbhatt0504/Quote-me-",
+    homepage: "https://quote-me-five.vercel.app",
+    stargazers_count: 0,
+    forks_count: 0,
+    language: "TypeScript",
+    topics: ["nextjs", "react", "tailwindcss", "typescript"],
+    updated_at: new Date().toISOString(),
+    fork: false,
+  },
+  {
+    id: "1177878490",
+    name: "Sikkim-Tourism",
+    description: "Interactive tourism application showcasing the beauty of Sikkim. Features smooth animations, dynamic routing, and visually stunning image galleries to promote local tourism.",
+    html_url: "https://github.com/puravbhatt0504/Sikkim-Tourism",
+    homepage: "https://sikkim-tourism-five.vercel.app",
+    stargazers_count: 0,
+    forks_count: 0,
+    language: "TypeScript",
+    topics: ["tourism", "javascript", "react", "frontend"],
+    updated_at: new Date().toISOString(),
+    fork: true,
+  },
+  {
+    id: "6",
+    name: "tenderhunter",
+    description: "A comprehensive platform to track and manage tender applications. Streamlines the bidding process with automated tracking and organizational tools.",
+    html_url: "https://github.com/puravbhatt0504/tenderhunter",
+    homepage: "https://tenderhunter.vercel.app",
+    stargazers_count: 0,
+    forks_count: 0,
+    language: "JavaScript",
+    topics: ["tender", "management", "javascript"],
+    updated_at: new Date().toISOString(),
+    fork: false,
+  }
+];
+
 export const getGitHubPortfolioData = cache(async function getGitHubPortfolioData(
   username: string,
 ): Promise<GitHubPortfolioData> {
@@ -232,21 +313,35 @@ export const getGitHubPortfolioData = cache(async function getGitHubPortfolioDat
 
     const cleanRepos = repositories
       .map((repository) => ({ ...repository, id: String(repository.id) }))
-      .filter((repository) => (!repository.fork || repository.name === "urban-policy-simulation") && repository.name.toLowerCase() !== "portfolio");
+      .filter((repository) => (!repository.fork || repository.name === "urban-policy-simulation" || repository.name === "Sikkim-Tourism") && repository.name.toLowerCase() !== "portfolio");
 
     const cleanPinnedRepos = pinnedRepositories.filter(
       (repository) => repository.name.toLowerCase() !== "portfolio"
+    );
+
+    const requiredNames = ["employee-manager-final", "grindflow", "urban-policy-simulation", "quote-me-", "sikkim-tourism", "tenderhunter"];
+    const additionalRepos = cleanRepos.filter(repo => 
+      requiredNames.includes(repo.name.toLowerCase()) && 
+      !cleanPinnedRepos.some(pinned => pinned.name.toLowerCase() === repo.name.toLowerCase())
+    );
+    
+    const missingMocks = MOCK_REPOS.filter(repo =>
+      requiredNames.includes(repo.name.toLowerCase()) &&
+      !cleanPinnedRepos.some(pinned => pinned.name.toLowerCase() === repo.name.toLowerCase()) &&
+      !additionalRepos.some(add => add.name.toLowerCase() === repo.name.toLowerCase())
     );
 
     const fallbackRepositories = cleanRepos
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
       .slice(0, 9);
 
+    const finalRepos = cleanPinnedRepos.length ? [...cleanPinnedRepos, ...additionalRepos, ...missingMocks] : [...fallbackRepositories, ...missingMocks];
+
     const languages = aggregateLanguages(cleanRepos);
 
     return {
       user,
-      repos: cleanPinnedRepos.length ? cleanPinnedRepos : fallbackRepositories,
+      repos: finalRepos,
       languages,
       stats: buildPortfolioStats(cleanRepos, languages),
     };
@@ -268,86 +363,7 @@ export const getGitHubPortfolioData = cache(async function getGitHubPortfolioDat
         following: 5,
         public_repos: 13
       },
-      repos: [
-        {
-          id: "3",
-          name: "employee-manager-final",
-          description: "A comprehensive workforce management system for City Fire Services. Features dual Flutter mobile apps (admin & employee) and a Next.js admin portal, backed by Supabase. Includes live GPS tracking, Mapbox integration, biometric auth, and OCR receipt scanning.",
-          html_url: "https://github.com/puravbhatt0504/employee-manager-final",
-          homepage: "https://employee-manager-final.vercel.app",
-          stargazers_count: 2,
-          forks_count: 0,
-          language: "Dart",
-          topics: ["flutter", "dart", "nextjs", "supabase", "mapbox", "ocr", "gps-tracking"],
-          updated_at: new Date().toISOString(),
-          fork: false,
-        },
-        {
-          id: "2",
-          name: "grindflow",
-          description: "AI-powered peer-to-peer knowledge exchange platform. Built with a robust TypeScript backend (Node.js/Express) and an interactive frontend to facilitate seamless knowledge graph creation and intelligent matching.",
-          html_url: "https://github.com/puravbhatt0504/grindflow",
-          homepage: null,
-          stargazers_count: 1,
-          forks_count: 3,
-          language: "TypeScript",
-          topics: ["ai", "typescript", "nodejs", "knowledge-graph", "peer-to-peer"],
-          updated_at: new Date().toISOString(),
-          fork: false,
-        },
-        {
-          id: "5",
-          name: "urban-policy-simulation",
-          description: "A complex simulation tool for urban planning and policy impact analysis. Uses data-driven models to predict and visualize the outcomes of city-wide policy changes on infrastructure and population metrics.",
-          html_url: "https://github.com/puravbhatt0504/urban-policy-simulation",
-          homepage: null,
-          stargazers_count: 0,
-          forks_count: 0,
-          language: "TypeScript",
-          topics: ["simulation", "policy", "urban-planning", "data-visualization"],
-          updated_at: new Date().toISOString(),
-          fork: false,
-        },
-        {
-          id: "1",
-          name: "Quote-me-",
-          description: "A professional Next.js web app for generating fire safety quotations. Features a dynamic product catalog, real-time tax/discount calculations, live previews with branding, and one-click Excel export.",
-          html_url: "https://github.com/puravbhatt0504/Quote-me-",
-          homepage: "https://quote-me-five.vercel.app",
-          stargazers_count: 0,
-          forks_count: 0,
-          language: "TypeScript",
-          topics: ["nextjs", "react", "tailwindcss", "typescript"],
-          updated_at: new Date().toISOString(),
-          fork: false,
-        },
-        {
-          id: "4",
-          name: "Sikkim-Tourism",
-          description: "Interactive tourism application showcasing the beauty of Sikkim. Features smooth animations, dynamic routing, and visually stunning image galleries to promote local tourism.",
-          html_url: "https://github.com/puravbhatt0504/Sikkim-Tourism",
-          homepage: "https://sikkim-tourism-five.vercel.app",
-          stargazers_count: 0,
-          forks_count: 0,
-          language: "JavaScript",
-          topics: ["tourism", "javascript", "react", "frontend"],
-          updated_at: new Date().toISOString(),
-          fork: false,
-        },
-        {
-          id: "6",
-          name: "tenderhunter",
-          description: "A comprehensive platform to track and manage tender applications. Streamlines the bidding process with automated tracking and organizational tools.",
-          html_url: "https://github.com/puravbhatt0504/tenderhunter",
-          homepage: "https://tenderhunter.vercel.app",
-          stargazers_count: 0,
-          forks_count: 0,
-          language: "JavaScript",
-          topics: ["tender", "management", "javascript"],
-          updated_at: new Date().toISOString(),
-          fork: false,
-        }
-      ],
+      repos: MOCK_REPOS,
       languages: [
         { language: "TypeScript", count: 6, weight: 1 },
         { language: "JavaScript", count: 4, weight: 0.66 },

@@ -17,10 +17,10 @@ const ORDERED_WORKS = [
     language: "Dart",
   },
   {
-    title: "Simulation Sys",
-    aliases: ["urban-policy-simulation", "simulation-sys", "simulation_sys"],
+    title: "Grindflow",
+    aliases: ["grindflow", "grindflow-backend"],
     description:
-      "Data-driven simulation tool for urban planning and policy impact analysis. Visualizes outcomes of city-wide policy changes on infrastructure and population metrics.",
+      "AI-powered peer-to-peer knowledge exchange platform. TypeScript backend (Node.js/Express) with intelligent matching and knowledge graph creation.",
     language: "TypeScript",
   },
   {
@@ -31,10 +31,10 @@ const ORDERED_WORKS = [
     language: "HTML",
   },
   {
-    title: "Grindflow",
-    aliases: ["grindflow", "grindflow-backend"],
+    title: "Simulation Sys",
+    aliases: ["urban-policy-simulation", "simulation-sys", "simulation_sys"],
     description:
-      "AI-powered peer-to-peer knowledge exchange platform. TypeScript backend (Node.js/Express) with intelligent matching and knowledge graph creation.",
+      "Data-driven simulation tool for urban planning and policy impact analysis. Visualizes outcomes of city-wide policy changes on infrastructure and population metrics.",
     language: "TypeScript",
   },
   {
