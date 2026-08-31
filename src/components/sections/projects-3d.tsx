@@ -148,6 +148,8 @@ export function Projects3D({ repos }: Projects3DProps) {
                         <img src="/projects/employee-manager.png" alt="Employee Manager screenshot" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
                       ) : repo.name === "Sikkim-Tourism" ? (
                         <img src="/projects/sikkim-tourism.png" alt="Sikkim Tourism screenshot" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
+                      ) : repo.name === "urban-policy-simulation" ? (
+                        <img src="/projects/urban-policy-simulation.png" alt="Urban Policy Simulation screenshot" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center opacity-10 font-heading text-6xl font-black z-0">
                           {String(index + 1).padStart(2, '0')}
