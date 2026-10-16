@@ -54,29 +54,46 @@ export const siteConfig = {
   ],
 };
 
-export const featuredCaseStudies = [
+export type FeaturedProject = {
+  name: string;
+  tag: string;
+  desc: string;
+  image: string;
+  repo?: string;
+  live?: string;
+  demoVideo?: string;
+};
+
+export const featuredProjects: FeaturedProject[] = [
   {
-    title: "Employee Manager Final",
-    aliases: ["employee-manager-final"],
-    category: "Admin dashboard",
-    summary:
-      "A team operations workspace focused on attendance, admin workflows, and sharper decision-making.",
-    highlights: ["Workflow clarity", "Operational visibility", "Role-aware admin UX"],
+    name: "Marka",
+    tag: "Flutter · Next.js · Supabase",
+    desc: "Workforce platform in daily use by a fire-services company: two Flutter apps and a Next.js admin portal with live GPS tracking, biometric check-in, OCR receipt scanning, and payroll.",
+    image: "/projects/employee-manager.png",
+    live: "https://employee-manager-final.vercel.app",
+    demoVideo: "/employee-manager-demo.mp4",
   },
   {
-    title: "Sikkim Tourism",
-    aliases: ["sikkim-tourism", "sikkim_tourism", "monastery-ar", "event_management"],
-    category: "Experience design",
-    summary:
-      "A destination-first concept that blends storytelling, discovery, and immersive visual presentation.",
-    highlights: ["Destination storytelling", "Media-rich discovery", "Immersive product direction"],
+    name: "RelayQ",
+    tag: "Node.js · BullMQ · Postgres · AWS",
+    desc: "Multi-tenant background-job service that survives workers being killed mid-flight: 33k jobs/min, and 0 lost or duplicated across 10k jobs under chaos testing.",
+    image: "/projects/relayq.jpg",
+    repo: "https://github.com/puravbhatt0504/relayq",
+    live: "https://relayq-demo.onrender.com/demo",
   },
   {
-    title: "Grindflow",
-    aliases: ["grindflow", "grindflow-backend"],
-    category: "Productivity system",
-    summary:
-      "A full-stack execution product built around focus, team coordination, and practical workflow design.",
-    highlights: ["Execution tracking", "Team workflow logic", "Full-stack architecture"],
+    name: "PulseBoard",
+    tag: "Socket.io · Redis · Postgres · AWS CDK",
+    desc: "Real-time collaborative Kanban with live cursors and shared editing, deployed to ECS Fargate behind CloudFront with infrastructure as code and AI features on Bedrock.",
+    image: "/projects/pulseboard.png",
+    repo: "https://github.com/puravbhatt0504/pulseboard",
+    live: "https://pulseboard-fmbj.onrender.com",
+  },
+  {
+    name: "Urban Policy Simulation",
+    tag: "Simulation · AI · Python",
+    desc: "Agent-based simulation platform for testing zoning, transit, and housing policy on real city data before it is enacted, with AI-generated scenarios and explanations.",
+    image: "/projects/urban-policy-simulation.png",
+    repo: "https://github.com/simulationsys/urban-policy-simulation",
   },
 ];

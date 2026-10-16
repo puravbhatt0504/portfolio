@@ -2,66 +2,12 @@
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { GitHubRepo } from "@/types/github";
 import { VideoModal } from "@/components/ui/video-modal";
+import { featuredProjects } from "@/lib/site";
 
-type Projects3DProps = {
-  repos: GitHubRepo[];
-};
-
-const DEMO_VIDEO_PATH = "/employee-manager-demo.mp4";
-
-function isEmployeeManager(name: string) {
-  return name.toLowerCase().replace(/[^a-z0-9]/g, "").includes("employeemanager");
-}
-
-const PROJECT_META: Record<string, { desc: string; tag: string }> = {
-  "employee-manager-final": {
-    desc: "A comprehensive, cross-platform enterprise solution for managing employee attendance and administrative workflows.",
-    tag: "Enterprise · Flutter · Next.js",
-  },
-  "grindflow": {
-    desc: "A scalable, AI-powered knowledge exchange platform with a robust TypeScript backend and intelligent matching algorithms.",
-    tag: "Web · AI · Productivity",
-  },
-  "urban-policy-simulation": {
-    desc: "An advanced agent-based modeling system simulating complex urban policy and traffic dynamics with AI-driven behaviors.",
-    tag: "Simulation · AI · Python",
-  },
-  "Quote-me-": {
-    desc: "Professional Next.js web app for generating fire safety quotations with dynamic catalog, real-time calculations.",
-    tag: "Web · Next.js",
-  },
-  "Sikkim-Tourism": {
-    desc: "Interactive tourism application with smooth animations, dynamic routing, and visually stunning image galleries.",
-    tag: "Web · Design",
-  },
-};
-
-const PREFERRED_ORDER = [
-  "employee-manager-final",
-  "grindflow",
-  "sikkim-tourism",
-  "urban-policy-simulation"
-];
-
-export function Projects3D({ repos }: Projects3DProps) {
-  const topRepos = repos
-    .filter(repo => repo.name !== "Quote-me-")
-    .sort((a, b) => {
-      const aName = a.name.toLowerCase();
-      const bName = b.name.toLowerCase();
-      const aIndex = PREFERRED_ORDER.findIndex(p => aName.includes(p));
-      const bIndex = PREFERRED_ORDER.findIndex(p => bName.includes(p));
-      
-      if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
-      if (aIndex !== -1) return -1;
-      if (bIndex !== -1) return 1;
-      return 0;
-    })
-    .slice(0, 4);
+export function Projects3D() {
   const container = useRef<HTMLElement>(null);
-  const [showDemo, setShowDemo] = useState(false);
+  const [demo, setDemo] = useState<{ src: string; title: string } | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: container,
@@ -111,17 +57,12 @@ export function Projects3D({ repos }: Projects3DProps) {
                />
             </svg>
           </div>
-          {topRepos.map((repo, index) => {
-            const meta = PROJECT_META[repo.name] || {
-              desc: repo.description || "Building the next generation of web experiences.",
-              tag: "Web · Full-Stack",
-            };
-            const hasDemo = isEmployeeManager(repo.name);
+          {featuredProjects.map((project, index) => {
             const isEven = index % 2 === 0;
 
             return (
               <motion.div
-                key={repo.id}
+                key={project.name}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -142,19 +83,7 @@ export function Projects3D({ repos }: Projects3DProps) {
                         {String(index + 1).padStart(2, '0')}
                       </div>
                       
-                      {repo.name.toLowerCase().includes("grindflow") ? (
-                        <img src="/projects/grindflow.png" alt="Grindflow screenshot" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
-                      ) : isEmployeeManager(repo.name) ? (
-                        <img src="/projects/employee-manager.png" alt="Employee Manager screenshot" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
-                      ) : repo.name === "Sikkim-Tourism" ? (
-                        <img src="/projects/sikkim-tourism.png" alt="Sikkim Tourism screenshot" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
-                      ) : repo.name === "urban-policy-simulation" ? (
-                        <img src="/projects/urban-policy-simulation.png" alt="Urban Policy Simulation screenshot" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center opacity-10 font-heading text-6xl font-black z-0">
-                          {String(index + 1).padStart(2, '0')}
-                        </div>
-                      )}
+                      <img src={project.image} alt={`${project.name} screenshot`} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0 object-top" />
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--ink)_1px,_transparent_1px)] bg-[size:10px_10px] opacity-[0.03] z-10 pointer-events-none" />
                       
                       {/* Fake preview overlay */}
@@ -165,8 +94,7 @@ export function Projects3D({ repos }: Projects3DProps) {
                       </div>
                     </div>
                     <div className="pt-3 flex justify-between items-center px-2">
-                       <span className="font-hand text-lg text-ink/80 line-clamp-1 mr-2">{repo.name}</span>
-                       <span className="font-mono text-[10px] text-coral whitespace-nowrap">★ {repo.stargazers_count}</span>
+                       <span className="font-hand text-lg text-ink/80 line-clamp-1 mr-2">{project.name}</span>
                     </div>
                   </motion.div>
 
@@ -182,33 +110,33 @@ export function Projects3D({ repos }: Projects3DProps) {
                 <div className="w-full md:w-1/2 space-y-4 bg-paper/95 backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-[0_0_40px_20px_var(--paper)]">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-ink/10 bg-paper-white">
                      <span className="w-2 h-2 rounded-full bg-blue" />
-                     <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink/60">{meta.tag}</span>
+                     <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink/60">{project.tag}</span>
                   </div>
 
                   <h3 className="font-heading text-2xl sm:text-3xl font-bold text-ink flex items-center gap-4">
                     <div className="bg-paper-white text-coral/80 rounded-full w-10 h-10 flex shrink-0 items-center justify-center font-mono text-lg font-light shadow-md border border-ink/10">
                       {String(index + 1).padStart(2, '0')}
                     </div>
-                    {repo.name}
+                    {project.name}
                   </h3>
 
                   <p className="font-cursive text-xl text-ink/80 leading-relaxed">
-                    {meta.desc}
+                    {project.desc}
                   </p>
 
                   <div className="flex flex-wrap gap-4 pt-4">
-                    {hasDemo && (
+                    {project.demoVideo && (
                       <button
                         type="button"
-                        onClick={() => setShowDemo(true)}
+                        onClick={() => setDemo({ src: project.demoVideo!, title: project.name })}
                         className="sticker px-6 py-2.5 text-sm font-bold flex items-center gap-2 hover:text-coral transition-colors"
                       >
                         <span className="text-coral">▶</span> Play Demo
                       </button>
                     )}
-                    {(repo.homepage || repo.name.toLowerCase().includes("grindflow")) && (
+                    {project.live && (
                       <a
-                        href={repo.name.toLowerCase().includes("grindflow") ? "https://grindflow.vercel.app/" : (repo.homepage ?? undefined)}
+                        href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="sticker px-6 py-2.5 text-sm font-bold flex items-center gap-2 hover:text-blue transition-colors"
@@ -216,14 +144,16 @@ export function Projects3D({ repos }: Projects3DProps) {
                         Live Site ↗
                       </a>
                     )}
-                    <a
-                      href={repo.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-6 py-2.5 text-sm font-bold font-mono text-ink/50 hover:text-ink transition-colors flex items-center gap-2 underline decoration-wavy underline-offset-4"
-                    >
-                      Code Repo →
-                    </a>
+                    {project.repo && (
+                      <a
+                        href={project.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-6 py-2.5 text-sm font-bold font-mono text-ink/50 hover:text-ink transition-colors flex items-center gap-2 underline decoration-wavy underline-offset-4"
+                      >
+                        Code Repo →
+                      </a>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -233,10 +163,10 @@ export function Projects3D({ repos }: Projects3DProps) {
       </section>
 
       <VideoModal
-        isOpen={showDemo}
-        onClose={() => setShowDemo(false)}
-        src={DEMO_VIDEO_PATH}
-        title="Employee Manager Final"
+        isOpen={demo !== null}
+        onClose={() => setDemo(null)}
+        src={demo?.src ?? ""}
+        title={demo?.title ?? ""}
       />
     </>
   );

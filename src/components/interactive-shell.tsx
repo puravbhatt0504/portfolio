@@ -14,12 +14,6 @@ type InteractiveShellProps = {
 };
 
 export function InteractiveShell({ data }: InteractiveShellProps) {
-  const filteredRepos = data.repos.filter(repo => 
-    ["employee-manager-final", "grindflow", "simulation", "quote-me", "sikkim-tourism"].some(
-      name => repo.name.toLowerCase().includes(name)
-    ) && !repo.name.toLowerCase().includes("backend")
-  );
-
   return (
     <SmoothScrollProvider>
       <div className="relative w-full">
@@ -29,7 +23,7 @@ export function InteractiveShell({ data }: InteractiveShellProps) {
             <Hero3D user={data.user} stats={data.stats} />
             <About3D />
             <Skills3D />
-            <Projects3D repos={filteredRepos} />
+            <Projects3D />
             <Contact3D
               githubUrl={data.user.html_url}
               websiteUrl={data.user.blog}

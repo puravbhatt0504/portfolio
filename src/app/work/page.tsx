@@ -10,11 +10,32 @@ const FALLBACK_USERNAME = "puravbhatt0504";
 
 const ORDERED_WORKS = [
   {
-    title: "Employee Manager Final",
+    title: "Marka",
     aliases: ["employee-manager-final"],
     description:
-      "Dual Flutter mobile apps (admin & employee) + Next.js admin portal for City Fire Services. Live GPS tracking, biometric auth, OCR receipt scanning, backed by Supabase.",
+      "Workforce platform in daily use by a fire-services company: two Flutter apps and a Next.js admin portal with live GPS tracking, biometric check-in, OCR receipt scanning, and payroll.",
     language: "Dart",
+  },
+  {
+    title: "RelayQ",
+    aliases: ["relayq"],
+    description:
+      "Multi-tenant background-job service that survives workers being killed mid-flight: 33k jobs/min, and 0 lost or duplicated across 10k jobs under chaos testing.",
+    language: "TypeScript",
+  },
+  {
+    title: "PulseBoard",
+    aliases: ["pulseboard"],
+    description:
+      "Real-time collaborative Kanban with live cursors and shared editing, deployed to ECS Fargate behind CloudFront with AWS CDK and AI features on Bedrock.",
+    language: "TypeScript",
+  },
+  {
+    title: "Urban Policy Simulation",
+    aliases: ["urban-policy-simulation", "simulation-sys", "simulation_sys"],
+    description:
+      "Agent-based simulation platform for testing zoning, transit, and housing policy on real city data before it is enacted, with AI-generated scenarios and explanations.",
+    language: "Python",
   },
   {
     title: "Grindflow",
@@ -29,13 +50,6 @@ const ORDERED_WORKS = [
     description:
       "Interactive tourism app with smooth animations, dynamic routing, and media-rich image galleries. Deployed on Vercel with responsive design for all devices.",
     language: "HTML",
-  },
-  {
-    title: "Simulation Sys",
-    aliases: ["urban-policy-simulation", "simulation-sys", "simulation_sys"],
-    description:
-      "Data-driven simulation tool for urban planning and policy impact analysis. Visualizes outcomes of city-wide policy changes on infrastructure and population metrics.",
-    language: "TypeScript",
   },
   {
     title: "Quote Me",

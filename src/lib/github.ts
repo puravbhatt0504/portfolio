@@ -225,7 +225,8 @@ const MOCK_REPOS: GitHubRepo[] = [
     id: "3",
     name: "employee-manager-final",
     description: "A comprehensive workforce management system for City Fire Services. Features dual Flutter mobile apps (admin & employee) and a Next.js admin portal, backed by Supabase. Includes live GPS tracking, Mapbox integration, biometric auth, and OCR receipt scanning.",
-    html_url: "https://github.com/puravbhatt0504/employee-manager-final",
+    // repo is private now; point at the live site instead of a 404
+    html_url: "https://employee-manager-final.vercel.app",
     homepage: "https://employee-manager-final.vercel.app",
     stargazers_count: 2,
     forks_count: 0,
@@ -319,7 +320,7 @@ export const getGitHubPortfolioData = cache(async function getGitHubPortfolioDat
       (repository) => repository.name.toLowerCase() !== "portfolio"
     );
 
-    const requiredNames = ["employee-manager-final", "grindflow", "urban-policy-simulation", "quote-me-", "sikkim-tourism", "tenderhunter"];
+    const requiredNames = ["employee-manager-final", "relayq", "pulseboard", "grindflow", "urban-policy-simulation", "quote-me-", "sikkim-tourism", "tenderhunter"];
     const additionalRepos = cleanRepos.filter(repo => 
       requiredNames.includes(repo.name.toLowerCase()) && 
       !cleanPinnedRepos.some(pinned => pinned.name.toLowerCase() === repo.name.toLowerCase())
