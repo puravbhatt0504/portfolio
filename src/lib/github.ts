@@ -320,7 +320,7 @@ export const getGitHubPortfolioData = cache(async function getGitHubPortfolioDat
       (repository) => repository.name.toLowerCase() !== "portfolio"
     );
 
-    const requiredNames = ["employee-manager-final", "relayq", "pulseboard", "grindflow", "urban-policy-simulation", "quote-me-", "sikkim-tourism", "tenderhunter"];
+    const requiredNames = ["employee-manager-final", "relayq", "pulseboard", "expenselens", "grindflow", "urban-policy-simulation", "quote-me-", "sikkim-tourism", "tenderhunter"];
     const additionalRepos = cleanRepos.filter(repo => 
       requiredNames.includes(repo.name.toLowerCase()) && 
       !cleanPinnedRepos.some(pinned => pinned.name.toLowerCase() === repo.name.toLowerCase())

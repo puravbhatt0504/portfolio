@@ -22,6 +22,7 @@ const ORDERED_WORKS = [
     description:
       "Multi-tenant background-job service that survives workers being killed mid-flight: 33k jobs/min, and 0 lost or duplicated across 10k jobs under chaos testing.",
     language: "TypeScript",
+    homepage: "https://relayq-demo.onrender.com/demo",
   },
   {
     title: "PulseBoard",
@@ -29,6 +30,7 @@ const ORDERED_WORKS = [
     description:
       "Real-time collaborative Kanban with live cursors and shared editing, deployed to ECS Fargate behind CloudFront with AWS CDK and AI features on Bedrock.",
     language: "TypeScript",
+    homepage: "https://pulseboard-fmbj.onrender.com",
   },
   {
     title: "Urban Policy Simulation",
@@ -38,32 +40,28 @@ const ORDERED_WORKS = [
     language: "Python",
   },
   {
+    title: "ExpenseLens",
+    aliases: ["expenselens"],
+    description:
+      "Flutter expense tracker that reads UPI and food-delivery screenshots with on-device ML Kit OCR, auto-categorizes spend, and syncs to a Node.js API on Neon Postgres.",
+    language: "Dart",
+    homepage: "https://web-six-olive-25.vercel.app",
+  },
+  {
     title: "Grindflow",
     aliases: ["grindflow", "grindflow-backend"],
     description:
-      "AI-powered peer-to-peer knowledge exchange platform. TypeScript backend (Node.js/Express) with intelligent matching and knowledge graph creation.",
+      "Peer-powered study notes platform with Gemini-scored notes, auto-generated quizzes, and a public library. Next.js, Neon, Drizzle, Clerk, and UploadThing.",
     language: "TypeScript",
+    homepage: "https://grindflow.vercel.app",
   },
   {
-    title: "Sikkim Tourism",
-    aliases: ["sikkim-tourism", "sikkim_tourism", "monastery-ar", "event_management"],
+    title: "Grain Connect",
+    aliases: ["grain-connect"],
     description:
-      "Interactive tourism app with smooth animations, dynamic routing, and media-rich image galleries. Deployed on Vercel with responsive design for all devices.",
-    language: "HTML",
-  },
-  {
-    title: "Quote Me",
-    aliases: ["quote-me-", "quote-me"],
-    description:
-      "Next.js app for generating fire safety quotations. Dynamic product catalog, real-time tax/discount calculations, live preview with branding, and Excel export.",
-    language: "TypeScript",
-  },
-  {
-    title: "Tenderhunter",
-    aliases: ["tenderhunter"],
-    description:
-      "Platform to discover and track tender opportunities. Automated tracking, filtering by category and deadline, with organizational bidding tools.",
+      "Live client site for an agri-commodity trading business: Next.js App Router, GSAP and Framer Motion, an RSS news ticker filtered for grain and ethanol news, and structured data for SEO.",
     language: "JavaScript",
+    homepage: "https://grainconnect.in",
   },
 ];
 
@@ -90,6 +88,8 @@ export default async function WorkPage() {
       return {
         ...found,
         name: work.title,
+        description: work.description,
+        homepage: found.homepage ?? work.homepage ?? null,
       };
     }
 
@@ -98,7 +98,7 @@ export default async function WorkPage() {
       name: work.title,
       description: work.description,
       html_url: "https://github.com/puravbhatt0504",
-      homepage: null,
+      homepage: work.homepage ?? null,
       stargazers_count: 0,
       forks_count: 0,
       language: work.language,
