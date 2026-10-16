@@ -69,9 +69,9 @@ export const featuredProjects: FeaturedProject[] = [
     name: "Marka",
     tag: "Flutter · Next.js · Supabase",
     desc: "Workforce platform in daily use by a fire-services company: two Flutter apps and a Next.js admin portal with live GPS tracking, biometric check-in, OCR receipt scanning, and payroll.",
-    image: "/projects/employee-manager.png",
+    image: "/projects/marka.jpg",
     live: "https://employee-manager-final.vercel.app",
-    demoVideo: "/employee-manager-demo.mp4",
+    demoVideo: "/marka-demo.mp4",
   },
   {
     name: "RelayQ",
@@ -80,6 +80,7 @@ export const featuredProjects: FeaturedProject[] = [
     image: "/projects/relayq.jpg",
     repo: "https://github.com/puravbhatt0504/relayq",
     live: "https://relayq-demo.onrender.com/demo",
+    demoVideo: "/relayq-demo.mp4",
   },
   {
     name: "PulseBoard",
@@ -88,6 +89,7 @@ export const featuredProjects: FeaturedProject[] = [
     image: "/projects/pulseboard.png",
     repo: "https://github.com/puravbhatt0504/pulseboard",
     live: "https://pulseboard-fmbj.onrender.com",
+    demoVideo: "/pulseboard-demo.mp4",
   },
   {
     name: "Urban Policy Simulation",
