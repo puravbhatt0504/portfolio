@@ -86,7 +86,7 @@ export const featuredProjects: FeaturedProject[] = [
     name: "PulseBoard",
     tag: "Socket.io · Redis · Postgres · AWS CDK",
     desc: "Real-time collaborative Kanban with live cursors and shared editing, deployed to ECS Fargate behind CloudFront with infrastructure as code and AI features on Bedrock.",
-    image: "/projects/pulseboard.png",
+    image: "/projects/pulseboard.jpg",
     repo: "https://github.com/puravbhatt0504/pulseboard",
     live: "https://pulseboard-fmbj.onrender.com",
     demoVideo: "/pulseboard-demo.mp4",
