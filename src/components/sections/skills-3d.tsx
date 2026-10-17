@@ -3,18 +3,30 @@
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const ALL_SKILLS = [
+const ALL_SKILLS: { name: string; icon?: string }[] = [
   { name: "TypeScript", icon: "ts" },
-  { name: "React", icon: "react" },
-  { name: "Next.js", icon: "next" },
-  { name: "Python", icon: "py" },
-  { name: "Flutter", icon: "flutter" },
-  { name: "Tailwind", icon: "tailwind" },
   { name: "JavaScript", icon: "js" },
-  { name: "Vite", icon: "vite" },
-  { name: "Supabase", icon: "supabase" },
-  { name: "Firebase", icon: "firebase" },
+  { name: "Python", icon: "py" },
+  { name: "Dart", icon: "dart" },
+  { name: "React", icon: "react" },
+  { name: "Next.js", icon: "nextjs" },
+  { name: "Node.js", icon: "nodejs" },
+  { name: "Express", icon: "express" },
+  { name: "Flutter", icon: "flutter" },
+  { name: "FastAPI", icon: "fastapi" },
+  { name: "Tailwind", icon: "tailwind" },
   { name: "PostgreSQL", icon: "postgres" },
+  { name: "Prisma", icon: "prisma" },
+  { name: "Redis", icon: "redis" },
+  { name: "Supabase", icon: "supabase" },
+  { name: "LLMs & RAG" },
+  { name: "Amazon Bedrock" },
+  { name: "pgvector" },
+  { name: "scikit-learn", icon: "sklearn" },
+  { name: "AWS", icon: "aws" },
+  { name: "Docker", icon: "docker" },
+  { name: "GitHub Actions", icon: "githubactions" },
+  { name: "Prometheus", icon: "prometheus" },
   { name: "Git", icon: "git" },
 ];
 
@@ -39,11 +51,11 @@ export function Skills3D() {
         </p>
       </div>
 
-      <div ref={container} className="relative w-full max-w-4xl h-[250px] flex flex-wrap justify-center content-center gap-4 z-20">
+      <div ref={container} className="relative w-full max-w-4xl min-h-[250px] py-4 flex flex-wrap justify-center content-center gap-x-4 gap-y-7 z-20">
         {mounted && ALL_SKILLS.map((skill, i) => {
           // Generate a somewhat random but deterministic rotation and offset for the initial scatter
           const randomRotate = (i % 3 === 0 ? -1 : 1) * ((i % 5) * 2 + 2);
-          const randomY = (i % 2 === 0 ? 1 : -1) * ((i % 3) * 10);
+          const randomY = (i % 2 === 0 ? 1 : -1) * ((i % 3) * 5);
           
           return (
             <motion.div
@@ -65,12 +77,16 @@ export function Skills3D() {
               className="sticker flex items-center gap-3 px-4 py-2 cursor-grab select-none hover:border-coral/30 hover:shadow-lg transition-colors group bg-paper-white"
             >
               <span className="tape -top-2 left-1/2 -translate-x-1/2 w-8 h-3 -rotate-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <img
-                src={`https://skillicons.dev/icons?i=${skill.icon}`}
-                alt={skill.name}
-                className="w-6 h-6 pointer-events-none"
-                draggable={false}
-              />
+              {skill.icon ? (
+                <img
+                  src={`https://skillicons.dev/icons?i=${skill.icon}`}
+                  alt={skill.name}
+                  className="w-6 h-6 pointer-events-none"
+                  draggable={false}
+                />
+              ) : (
+                <span aria-hidden className="w-6 h-6 flex items-center justify-center text-coral text-lg pointer-events-none">✦</span>
+              )}
               <span className="text-sm font-bold text-ink/80 pointer-events-none whitespace-nowrap font-mono">
                 {skill.name}
               </span>
