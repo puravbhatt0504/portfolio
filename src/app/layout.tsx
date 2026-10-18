@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit, Permanent_Marker, JetBrains_Mono, Caveat } from "next/font/google";
+import { IBM_Plex_Sans, Permanent_Marker, JetBrains_Mono, Caveat } from "next/font/google";
 
 import { AudioProvider } from "@/components/providers/audio-provider";
 import { HeroSideNav } from "@/components/navigation/hero-side-nav";
@@ -9,8 +9,9 @@ import { GlobalBackground } from "@/components/ui/global-background";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
-const outfitFont = Outfit({
-  variable: "--font-outfit",
+const plexSansFont = IBM_Plex_Sans({
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-plex-sans",
   subsets: ["latin"],
 });
 
@@ -69,7 +70,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfitFont.variable} ${permanentMarkerFont.variable} ${caveatFont.variable} ${monoFont.variable} h-full antialiased`}
+      className={`${plexSansFont.variable} ${permanentMarkerFont.variable} ${caveatFont.variable} ${monoFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper text-ink">
         <AudioProvider>

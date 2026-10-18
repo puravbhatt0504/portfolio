@@ -21,8 +21,8 @@
   --color-blue: var(--blue);
   --color-green: var(--green);
   --color-tape: var(--tape);
-  --font-sans: var(--font-outfit);
-  --font-heading: var(--font-outfit);
+  --font-sans: var(--font-plex-sans);
+  --font-heading: var(--font-plex-sans);
   --font-mono: var(--font-jetbrains);
 }
 
@@ -34,7 +34,7 @@ html,
 body {
   color: var(--ink);
   background: var(--paper);
-  font-family: var(--font-outfit), sans-serif;
+  font-family: var(--font-plex-sans), sans-serif;
 }
 
 html::-webkit-scrollbar,
@@ -56,7 +56,7 @@ body {
 
 /* === Typographic System === */
 .font-heading {
-  font-family: var(--font-outfit), sans-serif;
+  font-family: var(--font-plex-sans), sans-serif;
   letter-spacing: -0.03em;
 }
 

@@ -45,7 +45,7 @@ export function About3D() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ ...spring, delay: 0.2 }}
-            className="font-cursive text-xl sm:text-2xl text-ink/80 leading-relaxed max-w-xl pt-4"
+            className="text-lg sm:text-xl text-ink/80 leading-relaxed max-w-xl pt-4"
           >
             I'm a full-stack and AI engineer who ships production systems end to end — from <span className="font-bold text-ink">Flutter</span> and <span className="font-bold text-ink">Next.js</span> apps to job queues on <span className="font-bold text-ink">PostgreSQL</span> and <span className="font-bold text-ink">Redis</span>, and RAG features on <span className="font-bold text-ink">AWS</span>.
           </motion.p>
@@ -54,7 +54,7 @@ export function About3D() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ ...spring, delay: 0.3 }}
-            className="font-cursive text-xl sm:text-2xl text-ink/80 leading-relaxed max-w-xl"
+            className="text-lg sm:text-xl text-ink/80 leading-relaxed max-w-xl"
           >
             Most recently I built <strong className="font-hand text-2xl text-coral tracking-wide">RelayQ</strong>, a job queue that loses nothing when workers crash, and <strong className="font-hand text-2xl text-coral tracking-wide">PulseBoard</strong>, a real-time board with cited AI answers, both deployed to AWS.
           </motion.p>

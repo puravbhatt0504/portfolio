@@ -120,7 +120,7 @@ export function Projects3D() {
                     {project.name}
                   </h3>
 
-                  <p className="font-cursive text-xl text-ink/80 leading-relaxed">
+                  <p className="text-base sm:text-lg text-ink/80 leading-relaxed">
                     {project.desc}
                   </p>
 
