@@ -67,8 +67,8 @@ export default function OpenGraphImage() {
               maxWidth: 900,
             }}
           >
-            Full-stack product developer building polished interfaces, real
-            systems, and premium client-facing web experiences.
+            Full-stack and AI engineer building reliable backends, production
+            LLM features, and Flutter and Next.js apps.
           </div>
         </div>
 
@@ -82,10 +82,10 @@ export default function OpenGraphImage() {
             letterSpacing: "0.18em",
           }}
         >
-          <div>Next.js</div>
           <div>TypeScript</div>
-          <div>Flutter</div>
-          <div>Motion UI</div>
+          <div>Node.js</div>
+          <div>AWS</div>
+          <div>LLMs</div>
         </div>
       </div>
     ),

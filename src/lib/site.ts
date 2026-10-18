@@ -1,10 +1,10 @@
 export const siteConfig = {
   name: "Purav Bhatt",
   shortName: "Purav",
-  title: "Purav Bhatt | Full-Stack Product Developer",
-  role: "Full-Stack Product Developer",
+  title: "Purav Bhatt | Full-Stack & AI Engineer",
+  role: "Full-Stack & AI Engineer",
   description:
-    "Interactive portfolio for Purav Bhatt, a full-stack product developer building polished Next.js, TypeScript, and Flutter experiences.",
+    "Portfolio of Purav Bhatt, a full-stack and AI engineer building reliable backends, production LLM features, and Flutter and Next.js apps.",
   availability: "Open to full-time roles, contract work, and product collaborations.",
   email: "pbhatt340@gmail.com",
   linkedin: "https://www.linkedin.com/in/pb0504/",
@@ -68,7 +68,7 @@ export const featuredProjects: FeaturedProject[] = [
   {
     name: "Marka",
     tag: "Flutter · Next.js · Supabase",
-    desc: "Workforce platform in daily use by a fire-services company: two Flutter apps and a Next.js admin portal with live GPS tracking, biometric check-in, OCR receipt scanning, and payroll.",
+    desc: "Attendance and payroll platform used daily by all 20 employees of a fire-services company: two Flutter apps and a Next.js admin portal with live GPS tracking, biometric check-in, OCR receipt scanning, and payroll.",
     image: "/projects/marka.jpg",
     live: "https://employee-manager-final.vercel.app",
     demoVideo: "/marka-demo.mp4",

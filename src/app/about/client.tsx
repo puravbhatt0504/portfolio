@@ -38,21 +38,22 @@ export function AboutPageClient({ principles, siteConfig }: AboutPageClientProps
             </h2>
             <div className="space-y-4 text-lg text-slate-600 leading-relaxed font-medium">
               <p>
-                I&apos;m a full-stack product developer focused on building polished, production-grade 
-                applications using <span className="text-slate-800 font-semibold">Next.js, TypeScript, Flutter, and Supabase</span>. 
-                I work across the entire stack — from interactive frontends with GSAP and Three.js 
-                to backend systems with PostgreSQL and real-time APIs.
+                I&apos;m a full-stack and AI engineer who ships production systems end to end, using 
+                <span className="text-slate-800 font-semibold"> TypeScript, Node.js, Next.js, Flutter, PostgreSQL, and AWS</span>. 
+                I work across the stack — from mobile and web frontends to job queues, real-time APIs, 
+                and LLM features with retrieval, citations, and evals.
               </p>
               <p>
-                My recent work includes an <span className="text-slate-800 font-semibold">employee management platform</span> for 
-                City Fire Services (dual Flutter apps + Next.js admin portal with live GPS tracking), 
-                an <span className="text-slate-800 font-semibold">AI-powered knowledge exchange platform</span>, 
-                and several client-facing web products deployed on Vercel.
+                At City Fire Services I built <span className="text-slate-800 font-semibold">Marka</span>, an attendance and 
+                payroll platform used daily by all 20 employees (two Flutter apps and a Next.js portal with live GPS tracking). 
+                Since then I&apos;ve built <span className="text-slate-800 font-semibold">RelayQ</span>, a job queue tested by killing 
+                workers mid-flight, and <span className="text-slate-800 font-semibold">PulseBoard</span>, a real-time board with 
+                RAG search, deployed to AWS with CDK.
               </p>
               <p>
-                I care about motion design, interaction quality, and building systems that feel 
-                premium — not just functional. Every project I ship prioritizes performance, 
-                accessibility, and maintainability alongside visual polish.
+                I care about systems that hold up under real use: no lost data, measured performance, 
+                and AI features checked by evals before they ship — with an interface that still 
+                feels good to use.
               </p>
             </div>
 

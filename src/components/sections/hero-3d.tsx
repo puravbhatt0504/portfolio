@@ -78,7 +78,7 @@ export function Hero3D({ user, stats }: Hero3DProps) {
               transition={{ delay: 0.4, ...springConfig }}
               className="font-cursive text-xl sm:text-2xl text-ink/80 max-w-md leading-relaxed mb-8"
             >
-              Full-Stack Product Developer building polished Next.js, TypeScript, and Flutter experiences.
+              Full-Stack &amp; AI Engineer building reliable backends, production LLM features, and Flutter and Next.js apps.
             </motion.p>
 
             <motion.div

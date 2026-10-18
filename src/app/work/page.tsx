@@ -13,7 +13,7 @@ const ORDERED_WORKS = [
     title: "Marka",
     aliases: ["employee-manager-final"],
     description:
-      "Workforce platform in daily use by a fire-services company: two Flutter apps and a Next.js admin portal with live GPS tracking, biometric check-in, OCR receipt scanning, and payroll.",
+      "Attendance and payroll platform used daily by all 20 employees of a fire-services company: two Flutter apps and a Next.js admin portal with live GPS tracking, biometric check-in, OCR receipt scanning, and payroll.",
     language: "Dart",
   },
   {
@@ -112,8 +112,8 @@ export default async function WorkPage() {
     <main className="pb-20">
       <RouteHero
         eyebrow="Work / Showcase"
-        title="Selected repositories and craft experiments."
-        description="A curated feed from GitHub with pinned priority, tuned to spotlight impact and consistency."
+        title="Selected work, from production apps to infrastructure."
+        description="The projects I’d most like you to see first, followed by earlier builds."
       />
 
       <WorkPageClient repos={displayRepos} />

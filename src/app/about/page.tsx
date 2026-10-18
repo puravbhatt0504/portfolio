@@ -14,7 +14,7 @@ const PRINCIPLES = [
 export const metadata: Metadata = {
   title: "About",
   description:
-    "How Purav Bhatt approaches interaction design, systems thinking, and product engineering.",
+    "How Purav Bhatt builds reliable full-stack systems and production AI features.",
 };
 
 export default function AboutPage() {
@@ -22,8 +22,8 @@ export default function AboutPage() {
     <main className="pb-20">
       <RouteHero
         eyebrow="About / Philosophy"
-        title="I design interfaces that behave like living systems."
-        description="My process blends systems thinking, motion design, and product engineering to create interfaces users can feel, not just use."
+        title="I build systems that hold up in production."
+        description="Backends that don’t lose data, AI features measured by evals, and interfaces people actually enjoy using."
       />
 
       <AboutPageClient principles={PRINCIPLES} siteConfig={siteConfig} />

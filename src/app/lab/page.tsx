@@ -5,23 +5,23 @@ import { LabPageClient } from "./client";
 
 const EXPERIMENTS = [
   {
-    title: "Employee Ops UX Workbench",
-    note: "Design and interaction experiments inspired by Employee Manager Final, focused on smoother admin workflows and team-level visibility.",
+    title: "Sisyphus, with retries",
+    note: "RelayQ's live demo as a 3D hill: every boulder is a real job in the real queue, and when one slips, a worker pushes it again.",
   },
   {
-    title: "Grindflow Productivity Engine",
-    note: "Rapid prototypes for task orchestration, execution tracking, and dashboard responsiveness in full-stack TypeScript systems.",
+    title: "Eval-gated AI features",
+    note: "PulseBoard's RAG and triage evals, built from real GitHub issues, run in CI and fail the build if answers, citations, or injection resistance regress.",
   },
   {
-    title: "Sikkim Tourism Experience Concepts",
-    note: "Interface concepts for destination storytelling, route discovery, and media-rich exploration tailored to Sikkim tourism use cases.",
+    title: "Vaidyapedia",
+    note: "A small Rust (Axum + SQLite) wiki for village healing traditions, with healer submissions that go through moderated review.",
   },
 ];
 
 export const metadata: Metadata = {
   title: "Lab",
   description:
-    "Experimental product concepts and interface explorations by Purav Bhatt.",
+    "Side experiments and prototypes by Purav Bhatt.",
 };
 
 export default function LabPage() {
@@ -29,8 +29,8 @@ export default function LabPage() {
     <main className="pb-20">
       <RouteHero
         eyebrow="Lab / Purav Builds"
-        title="A full-stack experimentation space shaped by real products."
-        description="I prototype features around employee management, productivity systems, and tourism experiences, then evolve the strongest ideas into production-ready implementations."
+        title="Where I try ideas before they become products."
+        description="Demos, eval harnesses, and small builds in new stacks. The ones that hold up end up in real projects."
       />
 
       <LabPageClient experiments={EXPERIMENTS} />
