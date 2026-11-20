@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 
 const ALL_SKILLS: { name: string; icon?: string }[] = [
@@ -31,12 +31,9 @@ const ALL_SKILLS: { name: string; icon?: string }[] = [
 ];
 
 export function Skills3D() {
+  // Skills render on the server too (no mount gate) so the section isn't empty
+  // for crawlers, link previews, or before hydration.
   const container = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <section id="skills" className="relative px-6 md:px-20 py-12 z-10 overflow-hidden flex flex-col items-center">
@@ -52,7 +49,7 @@ export function Skills3D() {
       </div>
 
       <div ref={container} className="relative w-full max-w-4xl min-h-[250px] py-4 flex flex-wrap justify-center content-center gap-x-4 gap-y-7 z-20">
-        {mounted && ALL_SKILLS.map((skill, i) => {
+        {ALL_SKILLS.map((skill, i) => {
           // Generate a somewhat random but deterministic rotation and offset for the initial scatter
           const randomRotate = (i % 3 === 0 ? -1 : 1) * ((i % 5) * 2 + 2);
           const randomY = (i % 2 === 0 ? 1 : -1) * ((i % 3) * 5);

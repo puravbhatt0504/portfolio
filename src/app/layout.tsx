@@ -31,8 +31,14 @@ const monoFont = JetBrains_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+// Production must never fall back to localhost: that is what broke link
+// previews. NEXT_PUBLIC_SITE_URL still overrides (e.g. for preview deploys).
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.NODE_ENV === "development" ? "http://localhost:3000" : siteConfig.url);
 
+// og:image / twitter:image come from the opengraph-image.tsx and
+// twitter-image.tsx file conventions, resolved against metadataBase.
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -46,14 +52,12 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     type: "website",
     siteName: `${siteConfig.name} Portfolio`,
-    url: siteUrl,
-    images: ["/opengraph-image"],
+    url: "/",
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: ["/twitter-image"],
   },
 };
 

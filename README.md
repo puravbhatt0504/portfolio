@@ -31,7 +31,8 @@ High-impact portfolio built with Next.js App Router, TypeScript, Tailwind CSS, F
 
 ```bash
 GITHUB_USERNAME=your-github-username
-NEXT_PUBLIC_SITE_URL=https://portfolio-purav-bhatt.vercel.app
+# Optional: defaults to siteConfig.url (https://puravbhatt.me) in production
+NEXT_PUBLIC_SITE_URL=https://puravbhatt.me
 ```
 
 Optional for higher GitHub API limits:

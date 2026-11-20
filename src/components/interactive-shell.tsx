@@ -4,6 +4,7 @@
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { Hero3D } from "./sections/hero-3d";
 import { About3D } from "./sections/about-3d";
+import { Experience3D } from "./sections/experience-3d";
 import { Skills3D } from "./sections/skills-3d";
 import { Projects3D } from "./sections/projects-3d";
 import { Contact3D } from "./sections/contact-3d";
@@ -22,6 +23,7 @@ export function InteractiveShell({ data }: InteractiveShellProps) {
           <div className="pointer-events-auto">
             <Hero3D user={data.user} stats={data.stats} />
             <About3D />
+            <Experience3D />
             <Skills3D />
             <Projects3D />
             <Contact3D

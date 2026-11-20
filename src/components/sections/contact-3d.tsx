@@ -10,15 +10,32 @@ type Contact3DProps = {
   location: string | null;
 };
 
+// GitHub's `blog` field is free text (e.g. "puravbhatt.me" with no scheme), which
+// the browser would resolve as a relative path. Normalise it to an absolute URL,
+// and drop it entirely when it points back at this site.
+function externalWebsite(raw: string | null): string | null {
+  const value = raw?.trim();
+  if (!value) return null;
+  try {
+    const url = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`);
+    const stripWww = (host: string) => host.replace(/^www\./, "");
+    if (stripWww(url.hostname) === stripWww(new URL(siteConfig.url).hostname)) return null;
+    return url.href;
+  } catch {
+    return null;
+  }
+}
+
 export function Contact3D({ githubUrl, websiteUrl, location }: Contact3DProps) {
   const container = useRef<HTMLElement>(null);
   const isInView = useInView(container, { once: true, margin: "-100px" });
 
+  const website = externalWebsite(websiteUrl);
   const SOCIALS = [
     { label: "Email", href: `mailto:${siteConfig.email}`, icon: "✉" },
     { label: "LinkedIn", href: siteConfig.linkedin, icon: "in" },
     { label: "GitHub", href: githubUrl, icon: "gh" },
-    ...(websiteUrl ? [{ label: "Web", href: websiteUrl, icon: "◎" }] : []),
+    ...(website ? [{ label: "Website", href: website, icon: "◎" }] : []),
   ];
 
   return (
@@ -87,6 +104,8 @@ export function Contact3D({ githubUrl, websiteUrl, location }: Contact3DProps) {
               href={social.href}
               target={social.href.startsWith("mailto") ? undefined : "_blank"}
               rel="noopener noreferrer"
+              aria-label={social.label}
+              title={social.label}
               className={`w-12 h-12 flex items-center justify-center font-mono font-bold text-lg text-ink/50 hover:text-coral transition-colors sticker ${i % 2 === 0 ? 'rotate-3' : '-rotate-6'}`}
             >
               {social.icon}

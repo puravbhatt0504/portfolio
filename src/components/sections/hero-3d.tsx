@@ -126,7 +126,7 @@ export function Hero3D({ user, stats }: Hero3DProps) {
               </div>
 
               <div className="pt-4 flex justify-between items-end">
-                <p className="font-hand text-xl text-coral -rotate-2">hello world!</p>
+                <p className="font-hand text-xl text-coral -rotate-2">ships things that hold up</p>
                 
                 <div className="flex gap-3 bg-paper-white p-2 border border-ink/5 shadow-sm -rotate-1">
                   <div className="flex flex-col items-center px-2">

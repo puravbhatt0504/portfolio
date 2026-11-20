@@ -3,6 +3,9 @@ export const siteConfig = {
   shortName: "Purav",
   title: "Purav Bhatt | Full-Stack & AI Engineer",
   role: "Full-Stack & AI Engineer",
+  // Canonical production origin. Used for metadataBase (OG/Twitter URLs) and to
+  // avoid rendering a self-link in the socials row.
+  url: "https://puravbhatt.me",
   description:
     "Portfolio of Purav Bhatt, a full-stack and AI engineer building reliable backends, production LLM features, and Flutter and Next.js apps.",
   availability: "Open to full-time roles, contract work, and product collaborations.",
@@ -54,6 +57,47 @@ export const siteConfig = {
   ],
 };
 
+export type TimelineEntry = {
+  title: string;
+  org: string;
+  location: string;
+  period: string;
+  points: string[];
+};
+
+export const experience: TimelineEntry[] = [
+  {
+    title: "Full-Stack Developer",
+    org: "City Fire Services India",
+    location: "Delhi, India",
+    period: "Sep 2025 – Sep 2026",
+    points: [
+      "Built and shipped Marka, the attendance and payroll platform used daily by field crews: two Flutter apps and a Next.js admin portal on Supabase.",
+      "Designed the PostgreSQL data layer with Row-Level Security on every table; payroll and secret handling run server-side in Supabase Edge Functions, scheduled via pg_cron.",
+      "Shipped GPS-verified check-in with a live crew map, on-device receipt OCR, leave approvals, push notifications, and automated salary slips.",
+    ],
+  },
+  {
+    title: "Data Science Intern",
+    org: "IIIT Delhi",
+    location: "Delhi, India",
+    period: "Jul 2025 – Aug 2025",
+    points: [
+      "Cleaned and prepared research datasets with pandas, built scikit-learn baselines, and ran graph neural network training jobs for the research team.",
+    ],
+  },
+];
+
+export const education: TimelineEntry[] = [
+  {
+    title: "B.Tech, Artificial Intelligence and Data Science",
+    org: "Guru Gobind Singh Indraprastha University",
+    location: "Delhi, India",
+    period: "Expected 2027",
+    points: ["CGPA: 8.0 / 10"],
+  },
+];
+
 export type FeaturedProject = {
   name: string;
   tag: string;
@@ -75,7 +119,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     name: "RelayQ",
-    tag: "Node.js · BullMQ · Postgres · AWS",
+    tag: "Node.js · BullMQ · Redis · Postgres · Docker",
     desc: "Multi-tenant background-job service that survives workers being killed mid-flight: 33k jobs/min, and 0 lost or duplicated across 10k jobs under chaos testing.",
     image: "/projects/relayq.jpg",
     repo: "https://github.com/puravbhatt0504/relayq",

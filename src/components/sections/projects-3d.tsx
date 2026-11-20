@@ -126,13 +126,19 @@ export function Projects3D() {
 
                   <div className="flex flex-wrap gap-4 pt-4">
                     {project.demoVideo && (
-                      <button
-                        type="button"
-                        onClick={() => setDemo({ src: project.demoVideo!, title: project.name })}
+                      // A real link to the video file, so it works without JS, for
+                      // crawlers, and on middle/cmd-click; a plain click opens the modal.
+                      <a
+                        href={project.demoVideo}
+                        onClick={(e) => {
+                          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                          e.preventDefault();
+                          setDemo({ src: project.demoVideo!, title: project.name });
+                        }}
                         className="sticker px-6 py-2.5 text-sm font-bold flex items-center gap-2 hover:text-coral transition-colors"
                       >
-                        <span className="text-coral">▶</span> Play Demo
-                      </button>
+                        <span aria-hidden className="text-coral">▶</span> Play Demo
+                      </a>
                     )}
                     {project.live && (
                       <a
