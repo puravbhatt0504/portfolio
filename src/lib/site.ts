@@ -138,7 +138,7 @@ export const featuredProjects: FeaturedProject[] = [
   {
     name: "Urban Policy Simulation",
     tag: "Simulation · AI · Python",
-    desc: "Agent-based simulation platform for testing zoning, transit, and housing policy on real city data before it is enacted, with AI-generated scenarios and explanations.",
+    desc: "Team agent-based simulation for testing transit and housing policy before it is enacted. I built its evaluation: 20 seeds × 11 scenarios with 95% CIs and pre-registered hypotheses, calibrated against Delhi's RITES survey, which found and fixed two engine bugs.",
     image: "/projects/urban-policy-simulation.png",
     repo: "https://github.com/simulationsys/urban-policy-simulation",
   },
