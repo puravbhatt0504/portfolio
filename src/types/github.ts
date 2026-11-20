@@ -24,6 +24,7 @@ export type GitHubRepo = {
   topics?: string[];
   updated_at: string;
   fork: boolean;
+  private?: boolean;
 };
 
 export type LanguageStat = {
@@ -34,6 +35,8 @@ export type LanguageStat = {
 
 export type PortfolioStats = {
   totalRepos: number;
+  /** Public, non-fork repositories: matches GitHub's Repositories > Type: Sources. */
+  originalRepos: number;
   totalStars: number;
   totalForks: number;
   primaryLanguage: string | null;

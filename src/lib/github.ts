@@ -203,9 +203,11 @@ function getRecentActivityCount(repositories: GitHubRepo[]) {
 function buildPortfolioStats(
   repositories: GitHubRepo[],
   languages: LanguageStat[],
+  originalRepos: number,
 ): PortfolioStats {
   return {
     totalRepos: repositories.length,
+    originalRepos,
     totalStars: repositories.reduce(
       (total, repository) => total + repository.stargazers_count,
       0,
@@ -344,7 +346,13 @@ export const getGitHubPortfolioData = cache(async function getGitHubPortfolioDat
       user,
       repos: finalRepos,
       languages,
-      stats: buildPortfolioStats(cleanRepos, languages),
+      // Count from the raw list, not cleanRepos (which drops this repo and keeps
+      // a couple of showcase forks), so the number is checkable on GitHub.
+      stats: buildPortfolioStats(
+        cleanRepos,
+        languages,
+        repositories.filter((repository) => !repository.fork && !repository.private).length,
+      ),
     };
   } catch (error) {
     console.warn("Using fallback mock data due to API limit.");
@@ -354,15 +362,15 @@ export const getGitHubPortfolioData = cache(async function getGitHubPortfolioDat
       user: {
         login: username,
         name: "Purav Bhatt",
-        bio: "Full-Stack Developer | Building immersive and dynamic digital experiences.",
+        bio: "Full-Stack & AI Engineer",
         avatar_url: "https://avatars.githubusercontent.com/u/134580434?v=4",
         html_url: `https://github.com/${username}`,
-        blog: "",
+        blog: "https://puravbhatt.me",
         company: null,
         location: "India",
         followers: 12,
         following: 5,
-        public_repos: 13
+        public_repos: 24
       },
       repos: MOCK_REPOS,
       languages: [
@@ -373,6 +381,7 @@ export const getGitHubPortfolioData = cache(async function getGitHubPortfolioDat
       ],
       stats: {
         totalRepos: 13,
+        originalRepos: 15,
         totalStars: 2,
         totalForks: 3,
         primaryLanguage: "TypeScript",

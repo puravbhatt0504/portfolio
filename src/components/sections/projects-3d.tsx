@@ -17,7 +17,7 @@ export function Projects3D() {
 
   return (
     <>
-      <section ref={container} id="work" className="relative z-10 px-6 md:px-20 py-16">
+      <section ref={container} id="work" className="relative z-10 px-6 md:px-20 py-16 overflow-x-clip">
         <div className="section-divider mb-12" />
 
         <div className="text-center mb-16 relative z-20">
@@ -28,9 +28,6 @@ export function Projects3D() {
             Scrapbook of <br />
             <span className="text-coral italic font-serif">Creations</span>
           </h2>
-          <div className="absolute top-0 right-1/4 hidden lg:block opacity-50 -rotate-12">
-            <img src="/icons/stamp-1.png" alt="" className="w-16 h-16 opacity-30" />
-          </div>
         </div>
 
         <div className="max-w-5xl mx-auto flex flex-col gap-20 relative">

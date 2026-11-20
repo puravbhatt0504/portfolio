@@ -129,8 +129,8 @@ export function Hero3D({ user, stats }: Hero3DProps) {
                 <p className="font-hand text-xl text-coral -rotate-2">ships things that hold up</p>
                 
                 <div className="flex gap-3 bg-paper-white p-2 border border-ink/5 shadow-sm -rotate-1">
-                  <div className="flex flex-col items-center px-2">
-                    <span className="font-cursive text-xl font-bold text-ink">{user.public_repos}</span>
+                  <div className="flex flex-col items-center px-2" title="Original public repositories (forks excluded)">
+                    <span className="font-cursive text-xl font-bold text-ink">{stats.originalRepos}</span>
                     <span className="font-mono text-[9px] uppercase tracking-wider text-ink/40">Repos</span>
                   </div>
                   <div className="w-px h-6 bg-ink/10 self-center" />

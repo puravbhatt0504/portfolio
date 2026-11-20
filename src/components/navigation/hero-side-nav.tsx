@@ -18,6 +18,8 @@ import { cn } from "@/lib/cn";
 /* ─── Bubble Configuration ─── */
 // side: "left" | "right" — which side of the hero name the bubble sits on
 // offset: fine-tune vertical & horizontal positioning
+// Array order is page order (drives the mobile bar); desktop placement comes
+// from `side` + `position`.
 const NAV_BUBBLES = [
   {
     id: "hero",
@@ -38,13 +40,13 @@ const NAV_BUBBLES = [
     position: { top: "48%", offsetX: 40 },
   },
   {
-    id: "contact",
-    label: "Contact",
-    icon: ContactIcon,
-    side: "left" as const,
+    id: "experience",
+    label: "Resume",
+    icon: ExperienceIcon,
+    side: "right" as const,
     size: "sm" as const,
-    floatDelay: 2.8,
-    position: { top: "76%", offsetX: 70 },
+    floatDelay: 2.2,
+    position: { top: "78%", offsetX: 65 },
   },
   {
     id: "skills",
@@ -63,6 +65,15 @@ const NAV_BUBBLES = [
     size: "lg" as const,
     floatDelay: 1.8,
     position: { top: "52%", offsetX: 35 },
+  },
+  {
+    id: "contact",
+    label: "Contact",
+    icon: ContactIcon,
+    side: "left" as const,
+    size: "sm" as const,
+    floatDelay: 2.8,
+    position: { top: "76%", offsetX: 70 },
   },
 ] as const;
 
@@ -193,6 +204,8 @@ export function HeroSideNav() {
                 key={bubble.id}
                 type="button"
                 onClick={() => scrollToSection(bubble.id)}
+                aria-label={bubble.label}
+                aria-current={isActive ? "true" : undefined}
                 className={cn(
                   "relative flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 cursor-pointer",
                   isActive ? "text-paper-white scale-110" : "text-ink/40"
@@ -480,6 +493,15 @@ function AboutIcon({ className }: { className?: string }) {
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
+}
+
+function ExperienceIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 10L12 5 2 10l10 5 10-5z" />
+      <path d="M6 12v5c3 2 9 2 12 0v-5" />
     </svg>
   );
 }
