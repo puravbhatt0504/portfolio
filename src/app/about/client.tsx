@@ -48,7 +48,7 @@ export function AboutPageClient({ principles, siteConfig }: AboutPageClientProps
                 payroll platform used daily by all 20 employees (two Flutter apps and a Next.js portal with live GPS tracking). 
                 Since then I&apos;ve built <span className="text-slate-800 font-semibold">RelayQ</span>, a job queue tested by killing 
                 workers mid-flight, and <span className="text-slate-800 font-semibold">PulseBoard</span>, a real-time board with 
-                RAG search, deployed to AWS with CDK (the public demos are hosted on Render).
+                RAG search, which ran on AWS via CDK before I tore it down to save cost (the public demos run on Render).
               </p>
               <p>
                 I care about systems that hold up under real use: no lost data, measured performance, 

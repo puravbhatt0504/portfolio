@@ -56,7 +56,7 @@ export function About3D() {
             transition={{ ...spring, delay: 0.3 }}
             className="text-lg sm:text-xl text-ink/80 leading-relaxed max-w-xl"
           >
-            Most recently I built <strong className="font-hand text-2xl text-coral tracking-wide">RelayQ</strong>, a job queue that loses nothing when workers crash, and <strong className="font-hand text-2xl text-coral tracking-wide">PulseBoard</strong>, a real-time board with cited AI answers that I deployed to AWS (ECS Fargate, RDS) with CDK. The always-on public demos are hosted on Render.
+            Most recently I built <strong className="font-hand text-2xl text-coral tracking-wide">RelayQ</strong>, a job queue that loses nothing when workers crash, and <strong className="font-hand text-2xl text-coral tracking-wide">PulseBoard</strong>, a real-time board with cited AI answers that ran on AWS (ECS Fargate, RDS, CloudFront via CDK) before I tore it down to save cost. The always-on public demos run on Render.
           </motion.p>
         </div>
 
